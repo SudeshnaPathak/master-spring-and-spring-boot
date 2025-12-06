@@ -1,5 +1,10 @@
 package com.in28minutes.learn_spring_framework.game;
 
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
+
+@Component
+@Primary // Marks this bean as the primary bean to be injected when multiple beans of the same type are present
 public class MarioGame implements GamingConsole{
       public void up()
       {
