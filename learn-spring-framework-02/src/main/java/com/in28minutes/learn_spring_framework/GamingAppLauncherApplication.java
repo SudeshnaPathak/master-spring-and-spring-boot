@@ -13,7 +13,7 @@ public class GamingAppLauncherApplication {
        try(var context = new AnnotationConfigApplicationContext(GamingAppLauncherApplication.class))
        {
            // Auto-wiring by Spring Framework - it will search for beans of type GamingConsole and type GameRunner using @ComponentScan and inject it here
-           // Spring Scans the right Package -> finds the classes with @Component -> creates the instances -> Auto Wires the instances -> Gets the application up and running
+           // When we launch the GamingAppLauncherApplication -> Spring performs Component Scan in the right package -> finds the classes with @Component -> creates the Beans for these classes -> Retrieve the beans -> Gets the application up and running
            context.getBean(GamingConsole.class).up();
            context.getBean(GameRunner.class).run();
        }
