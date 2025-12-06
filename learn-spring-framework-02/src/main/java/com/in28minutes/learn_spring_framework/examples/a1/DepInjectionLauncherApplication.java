@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 
 @Component
-class YourBusinessClass{
+class YourFeildInjection{
     //Field Injection : No Setter or Constructor needed, Dependency is injected using Reflection
     @Autowired // When we place autowired over a field, Spring searches for a bean of type Dependency1 and injects it here
    Dependency1 dependency1;
@@ -19,6 +19,26 @@ class YourBusinessClass{
    public String toString(){
        return "Using "+ dependency1 + " and " + dependency2;
    }
+}
+
+@Component
+class YourSetterInjection{
+    Dependency1 dependency1;
+    Dependency2 dependency2;
+
+    @Autowired // When we place autowired over a setter method, Spring searches for a bean of type Dependency1 and injects it here
+    public void setDependency1(Dependency1 dependency1) {
+        this.dependency1 = dependency1;
+    }
+
+    @Autowired
+    public void setDependency2(Dependency2 dependency2) {
+        this.dependency2 = dependency2;
+    }
+
+    public String toString(){
+        return "Using "+ dependency1 + " and " + dependency2;
+    }
 }
 
 @Component
@@ -34,7 +54,8 @@ public class DepInjectionLauncherApplication {
         try(var context = new AnnotationConfigApplicationContext(DepInjectionLauncherApplication.class))
         {
            Arrays.stream(context.getBeanDefinitionNames()).forEach(System.out::println);
-           System.out.println(context.getBean(YourBusinessClass.class));
+           System.out.println(context.getBean(YourFeildInjection.class));
+           System.out.println(context.getBean(YourSetterInjection.class));
         }
     }
 }
