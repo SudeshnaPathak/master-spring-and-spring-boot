@@ -6,7 +6,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class GameRunner {
     private final GamingConsole game;
-    public GameRunner(@Qualifier("superContraGameQualifier")GamingConsole game){
+    public GameRunner(@Qualifier("superContraGame")GamingConsole game){
+        // Using lowercase of class name inside @Qualifier to specify which bean to inject
         this.game = game;
     }
     public void run(){
