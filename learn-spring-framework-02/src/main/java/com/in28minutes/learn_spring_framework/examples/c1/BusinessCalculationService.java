@@ -21,3 +21,10 @@ public class BusinessCalculationService {
     }
 
 }
+
+//Stereotype Annotations:
+//@Service - Indicates that an annotated class has a service logic
+//@Repository - Indicates that an annotated class is used to retrieve or manipulate data in a database
+//@Controller - Indicates that an annotated class is a "Controller" (e.g. a web
+// controller)
+//@Component - Generic stereotype for any Spring-managed component
