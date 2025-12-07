@@ -21,4 +21,7 @@
         <constructor-arg ref="game"/>
     </bean>
 
+<!--    POJOs are clean, allowing clean Java Code as everything is defined inside XML Configuration file-->
+<!--    Difficult to maintain & make changes, very cumbersome-->
+<!--    Rarely used, High Verbose, Everything is explicitly specified-->
 </beans>
