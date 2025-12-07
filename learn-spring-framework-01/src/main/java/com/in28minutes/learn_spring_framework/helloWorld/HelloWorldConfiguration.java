@@ -13,6 +13,7 @@ record Address(String firstLine, String city){ }
 @Configuration
 public class HelloWorldConfiguration {
     // Configure the Spring Beans
+    //@Bean - auto wiring is performed using method calls or method parameters
     @Bean
     public String name() {
         return "Sudeshna";
