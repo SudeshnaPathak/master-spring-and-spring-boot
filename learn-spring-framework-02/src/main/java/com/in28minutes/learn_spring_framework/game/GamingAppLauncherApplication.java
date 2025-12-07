@@ -19,6 +19,10 @@ public class GamingAppLauncherApplication {
            //Spring Bean - An object that is created, managed and injected by the Spring Framework is called a Spring Bean
            //IOC Container - Manages the lifecycle of Spring Beans & their dependencies - Creation, Configuration, Management, Destruction
            // 2 Types of IOC Containers - BeanFactory (Basic - rarely used), ApplicationContext (Advanced with more features)
+
+           //@Component - Auto-detect and register beans using classpath scanning(More preferred for your own application classes)
+           //@Configuration - Declare a class as a source of bean definitions
+           //@Bean - Explicitly declare a single bean using Java configuration methods and perform customization based on complex business logic or instantiate beans for third -party classes
        }
     }
 }
