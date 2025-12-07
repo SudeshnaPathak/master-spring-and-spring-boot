@@ -7,8 +7,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+// For @Component, Dependency Injection/Auto Wiring using Field Injection, Setter Injection and Constructor Injection
+// Dependency Injection : Identifying beans, their dependencies and wire them together(provides Inversion of Control)
+// Autowiring : The process of automatically injecting dependencies for a Spring Bean by Spring Container
 
-@Component
+@Component // A instance of this class/Spring Bean will be created and managed by Spring Container
 class YourFieldInjection{
     //Field Injection : No Setter or Constructor needed, Dependency is injected using Reflection
     @Autowired // When we place autowired over a field, Spring searches for a bean of type Dependency1 and injects it here
@@ -69,7 +72,7 @@ class Dependency1{ }
 class Dependency2{ }
 
 @Configuration
-@ComponentScan // Automatically scans the current package and its sub-packages for @Component classes
+@ComponentScan //Here, Automatically scans the current package and its sub-packages for @Component classes
 public class DepInjectionLauncherApplication {
     public static void main(String[] args){
         try(var context = new AnnotationConfigApplicationContext(DepInjectionLauncherApplication.class))
