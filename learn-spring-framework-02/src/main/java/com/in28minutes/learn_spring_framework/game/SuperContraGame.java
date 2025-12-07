@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-//@Qualifier("superContraGameQualifier") // To Auto wire a specific bean when multiple beans of the same type are present
+@Qualifier("superContraGameQualifier") // To Auto wire a specific bean when multiple beans of the same type are present
 //Has higher priority than @Primary
 public class SuperContraGame implements GamingConsole{
     public void up()
