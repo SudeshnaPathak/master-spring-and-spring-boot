@@ -1,9 +1,11 @@
 package com.in28minutes.learn_spring_framework.examples.c1;
 
 import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+//@Component
+@Repository //Indicates annotated class is used to retrieve or manipulate data in a database
+//@Repository Spring automatically wires JDBC Exception translation feature
 @Primary
 public class MongoDbDataService implements DataService {
     @Override
