@@ -23,3 +23,12 @@ public class LearnSpringBootApplication {
 //WARNING - Use of deprecated APIs, poor use of API, 'almost' errors, other runtime situations that are undesirable or unexpected, but not necessarily "wrong".
 //ERROR - Runtime errors or unexpected conditions.
 //OFF - Disable logging.
+
+//Start Jar not War
+//Default Embedded Server is Tomcat using spring-boot-starter-tomcat dependency
+
+//Spring Boot Embedded Server(Tomcat) : (Simplify Deployment and Development)
+//Step 0: mvn clean install (to build the jar file)
+//Step 1: Run the jar file using the command: java -jar your-application.jar(Example : java -jar learn-spring-boot-0.0.1-SNAPSHOT.jar)
+//Step 2: The embedded server (Tomcat) will start automatically.(Because Tomcat is already a part of jar file.)
+//Step 3: Access the application at http://localhost:8080 (default port is 8080)
