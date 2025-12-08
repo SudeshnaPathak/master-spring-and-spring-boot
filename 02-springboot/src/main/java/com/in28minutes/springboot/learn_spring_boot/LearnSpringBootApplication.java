@@ -32,3 +32,11 @@ public class LearnSpringBootApplication {
 //Step 1: Run the jar file using the command: java -jar your-application.jar(Example : java -jar learn-spring-boot-0.0.1-SNAPSHOT.jar)
 //Step 2: The embedded server (Tomcat) will start automatically.(Because Tomcat is already a part of jar file.)
 //Step 3: Access the application at http://localhost:8080 (default port is 8080)
+
+//Actuator endpoints : http://localhost:8080/actuator
+//http://localhost:8080/actuator/bean - List all the Spring Beans & check autoconfiguration
+//http://localhost:8080/actuator/health - Application Health Information
+//http://localhost:8080/actuator/configprops - Configuration Properties
+//http://localhost:8080/actuator/env - Environment Properties
+//http://localhost:8080/actuator/metrics/<metric_name> - Application Metrics
+//http://localhost:8080/actuator/mappings - All URL Mappings in the Application
