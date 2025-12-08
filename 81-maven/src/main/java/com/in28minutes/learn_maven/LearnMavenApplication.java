@@ -47,3 +47,16 @@ public class LearnMavenApplication {
 // mvn package : to create a jar file(also runs tests, compiles source & test files if not already done)
 // mvn dependency:tree : to view dependency tree of the project
 // mvn help:effective-pom : to view the effective pom including inherited dependencies & plugins from parent pom
+
+//Version Scheme : Major.Minor.Patch[-Modifier]
+//Major : Significant amount of work to upgrade(10.0.0 to 11.0.0)
+//Minor : Little amount of work to upgrade(10.0.0 to 10.1.0)
+//Patch : Bug fixes , No new features(10.0.0 to 10.0.1)
+//Modifier(Optional) : SNAPSHOT , ALPHA , BETA , MILESTONE(M1 , M2) , RC(Release Candidate) , RELEASE
+//Snapshot : In Development , can change at any time
+//Release : Stable version(W/O ANY MODIFIER)
+
+//Example flow: 10.0.0-SNAPSHOT -> 10.0.0-M1 -> 10.0.0-M2 -> 10.0.0-RC1 -> 10.0.0-RC2 -> 10.0.0
+//Avoid using SNAPSHOT versions in Production
+//Use RELEASE versions in Production
+//Milestones & RCs are intermediate versions used for testing before final release
