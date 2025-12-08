@@ -40,3 +40,7 @@ public class LearnSpringBootApplication {
 //http://localhost:8080/actuator/env - Environment Properties
 //http://localhost:8080/actuator/metrics/<metric_name> - Application Metrics
 //http://localhost:8080/actuator/mappings - All URL Mappings in the Application
+
+//Spring Framework - Dependency Injection , @Component , @ComponentScan , @Autowired , etc.
+//Spring MVC(Spring Module) - Simplify Web Apps and REST API , @RestController , @RequestMapping , @Controller etc.
+//Spring Boot(Spring Project) - Build Production Ready Apps Quickly, Simplify Spring Application Development and Deployment , Auto Configuration , Starter Projects , Embedded Servers , Actuator , Error Handling , Profiles and Configuration , DevTools etc.
