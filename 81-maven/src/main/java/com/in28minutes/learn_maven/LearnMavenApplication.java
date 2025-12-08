@@ -22,3 +22,6 @@ public class LearnMavenApplication {
 //Run Applications on TomCat or jetty
 //Run Unit Tests
 //Deploy to a Test Environments
+
+//From Parent pom : spring-boot-starter-parent
+// We inherit spring boot dependencies , java version , plugin management , configurations
