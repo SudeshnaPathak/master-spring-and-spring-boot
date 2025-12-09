@@ -7,7 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@Transactional
+@Transactional // EntityManager operations should be executed within a transaction context.
 public class CourseJpaRepository {
 
     @PersistenceContext // It is used to inject an EntityManager instance.
