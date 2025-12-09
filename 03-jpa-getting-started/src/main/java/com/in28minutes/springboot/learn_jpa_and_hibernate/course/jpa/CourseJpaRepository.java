@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public class CourseJpaRepository {
 
     @PersistenceContext // It is used to inject an EntityManager instance.
-    private EntityManager entityManager;
+    private EntityManager entityManager; // Manages Entities and their lifecycle.
 
     public void insert(Course course) {
         entityManager.merge(course);

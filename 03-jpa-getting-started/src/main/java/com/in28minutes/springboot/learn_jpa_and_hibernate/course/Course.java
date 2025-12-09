@@ -3,15 +3,15 @@ package com.in28minutes.springboot.learn_jpa_and_hibernate.course;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-@Entity // This annotation is used to specify that the class is an entity and this bean is mapped to a database table.
+@Entity // Mapping Entity: This annotation is used to specify that the class is an entity and this bean is mapped to a database table.
 public class Course {
-    @Id
+    @Id // Primary Key Mapping: This annotation is used to specify the primary key of an entity.
     private long id;
 
 //    @Column(name = "name") if the variable name and column name are same then no need to use this annotation
     private String name;
 
-//    @Column(name = "author")
+//    @Column(name = "author") Mapping Attribute: This annotation is used to specify the mapping between the entity attribute and the database table column.
     private String author;
 
     public Course() {

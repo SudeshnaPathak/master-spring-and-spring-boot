@@ -48,16 +48,4 @@ public class CourseCommandLineRunner implements CommandLineRunner {
         System.out.println(repository.findByName("Learn AWS"));
         System.out.println(repository.findByName("Learn Azure"));
     }
-
-
-
-
-
-    //JDBC : Write SQL Queries , map ResultSet to Objects
-    //JPA : Don't worry about SQL Queries , map Entities to Database tables
-    //Spring Data JPA :
-    //Here we don't need to talk to EntityManager or write any SQL queries. Spring Data JPA will take care of all these low-level details.
-    // We just need to define an interface that extends JpaRepository and Spring Data JPA will provide the implementation automatically at runtime.
-    // This is one of the powerful features of Spring Data JPA that simplifies data access in Spring applications.
-
 }
