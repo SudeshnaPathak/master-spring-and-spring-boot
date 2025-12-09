@@ -1,8 +1,17 @@
 package com.in28minutes.springboot.learn_jpa_and_hibernate.course;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity // This annotation is used to specify that the class is an entity and this bean is mapped to a database table.
 public class Course {
+    @Id
     private long id;
+
+//    @Column(name = "name") if the variable name and column name are same then no need to use this annotation
     private String name;
+
+//    @Column(name = "author")
     private String author;
 
     public Course() {
