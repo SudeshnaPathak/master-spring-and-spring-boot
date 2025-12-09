@@ -11,3 +11,5 @@ public class LearnJpaAndHibernateApplication {
 	}
 
 }
+//url to access h2-database console
+//http://localhost:8080/h2-console
