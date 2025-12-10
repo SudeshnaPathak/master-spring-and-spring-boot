@@ -27,4 +27,16 @@ public class SayHelloController {
         sb.append("</html>");
         return sb.toString();
     }
+
+    // JSP View - Java Server Pages
+    // src/main/resourcses/META-INF/resources/WEB-INF/jsp/sayHello.jsp
+    // say-hello-jsp -> SayHelloController -> sayHelloJsp() -> sayHello
+    // ViewResolver -> Prefix + sayHello + Suffix
+    // Prefix = /WEB-INF/jsp/
+    // Suffix = .jsp
+    // Specified in application.properties
+    @RequestMapping("say-hello-jsp")
+    public String sayHelloJsp() {
+        return "sayHello"; // This will map to sayHello.jsp
+    }
 }
