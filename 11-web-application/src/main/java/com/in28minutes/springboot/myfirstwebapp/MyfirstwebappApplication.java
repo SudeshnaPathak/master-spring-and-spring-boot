@@ -11,3 +11,6 @@ public class MyfirstwebappApplication {
 	}
 
 }
+
+//Browser sends a HTTP Request to the Server
+//Server is our Spring Boot Application which handles the HTTP Request and sends back a HTTP Response
