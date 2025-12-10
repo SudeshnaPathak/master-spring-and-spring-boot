@@ -14,3 +14,21 @@ public class MyfirstwebappApplication {
 
 //Browser sends a HTTP Request to the Server
 //Server is our Spring Boot Application which handles the HTTP Request and sends back a HTTP Response
+
+
+//Model 1 Architecture : All code in JSP View ~ Very Complex, Zero Separation of Concerns, High Maintenance
+//Model 2 Architecture : MVC Architecture ~ Controller handles the request & the Entire flow, Model contains the data, View renders the data
+//Servlet : Java Class to handle HTTP Request and send back HTTP Response
+//Controller : A Servlet which is part of Spring Framework to handle HTTP Request and send back HTTP Response
+//Model : Data which needs to be rendered in the View
+//View : JSP Page which renders the data
+//Front Controller : All Requests flow to a Central Controller(Front Controller) which then identifies & delegates the request to appropriate Controller & View. All Common Functionality can be implemented in the Front Controller. Example : Authentication, Authorization, Logging, etc.
+//DispatcherServlet : Front Controller provided by Spring Framework
+
+//Flow of Request Processing in Spring MVC :
+//1. Browser sends HTTP Request to DispatcherServlet(Front Controller)
+//2. DispatcherServlet identifies the appropriate Controller to handle the request based on the URL(Ex : /login -> LoginController)
+//3. Controller processes the request and prepares the data(Model) for the View
+//4. Controller returns the View Name to DispatcherServlet
+//5. DispatcherServlet identifies the actual View using ViewResolver(Prefix + View Name + Suffix)
+//6. View is rendered with the data from the Model and HTTP Response is sent back to the Browser
