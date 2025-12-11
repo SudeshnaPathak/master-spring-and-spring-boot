@@ -11,6 +11,34 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
 
+    private final AuthenticationService authenticationService;
+
+    public LoginController(AuthenticationService authenticationService) {
+        super();
+        this.authenticationService = authenticationService;
+    }
+
+    @RequestMapping(value = "login", method = RequestMethod.GET)
+    public String goToLoginPage() {
+        return "login";
+    }
+
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public String goToWelcomePage(@RequestParam String name , @RequestParam String password, ModelMap model) {
+
+        //Seperate the Authentication Logic to a separate class - AuthenticationService ~ Single Responsibility Principle(SOLID Principle)
+        if(authenticationService.authenticate(name,password)) {
+            model.put("name", name);
+            return "welcome";
+        }
+        model.put("errorMessage", "Invalid Credentials! Please try again.");
+        return "login";
+    }
+
+
+
+
+    //NOT REQUIRED ANYMORE - USING SPRING FORMS INSTEAD
     private final Logger logger = LoggerFactory.getLogger(getClass()); //Default log with slf4j
 
     //http://localhost:8080/login?name=Sudeshna
@@ -26,17 +54,5 @@ public class LoginController {
         //All levels below the configured level will be logged , Example : If the level is set to Info , Warn , Error will be logged but Debug will not be logged
 
         return "login"; // This will map to login.jsp
-    }
-
-    @RequestMapping(value = "login", method = RequestMethod.GET)
-    public String goToLoginPage() {
-        return "login";
-    }
-
-    @RequestMapping(value = "login", method = RequestMethod.POST)
-    public String goToWelcomePage(@RequestParam String name , @RequestParam String password, ModelMap model) {
-        model.put("name", name);
-        model.put("password", password);
-        return "welcome";
     }
 }
