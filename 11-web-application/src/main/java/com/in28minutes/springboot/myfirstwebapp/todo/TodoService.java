@@ -28,4 +28,8 @@ public class TodoService {
         Todo todo = new Todo(++todosCount, username, description, targetDate, done);
         todos.add(todo);
     }
+
+    public void deleteById(int id){
+        todos.removeIf(todo -> todo.getId() == id); //Lambda Expression , removeIf method implements the predicate on every element of the list
+    }
 }
