@@ -11,6 +11,7 @@
        <%--@elvariable id="todo" type=""--%>
        <form:form method="POST" modelAttribute="todo">  <%-- tie to the "todo" object in the model--%>
             Description: <form:input type="text" required="required" path="description"/>
+                         <form:errors path="description" cssClass="text-warning"/>
             <form:input type="hidden" path="id"/>
             <form:input type="hidden" path="done"/>
            <input type="submit" class="btn btn-success"/>

@@ -1,7 +1,9 @@
 package com.in28minutes.springboot.myfirstwebapp.todo;
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -28,20 +30,29 @@ public class TodoController {
 
     @RequestMapping(value = "add-todo" , method = RequestMethod.GET)
     public String showNewTodoPage(ModelMap model) {
-        String username = (String) model.get("name");
+
+        String username = (String) model.get("name"); //Getting the username from the Session Attribute
+
+        //1st Side Binding : From Bean to the form , Binding the todo object to the form
         Todo todo = new Todo(0 , username , "" , LocalDate.now().plusYears(1) , false);
         model.put("todo" , todo);
         return "todo";
     }
 
     @RequestMapping(value = "add-todo" , method = RequestMethod.POST)
-    public String addNewTodo(ModelMap model , Todo todo) {
+    public String addNewTodo(ModelMap model , @Valid Todo todo , BindingResult result) { //@Valid Ensure Validation before binding to todo object
 
         //Bind form data directly to the fields in Todo Bean
         //Command Bean or Form Backing Object - todo
-        //We use this form backing object in the JSP using Spring Form Tags
+        //We use this form backing object todo in the JSP using Spring Form Tags
+        //2 Way Binding : From Bean to the form and from the form to the Bean
+        //2nd Side Binding : From form to the Bean , Binding Form data to the todo object
 
-        String username = (String)model.get("name"); //Getting the username from the Session Attribute
+        if(result.hasErrors()){
+            return "todo";
+        }
+
+        String username = (String)model.get("name");
         todoService.addTodo(username , todo.getDescription() , LocalDate.now().plusYears(1) , false);
         return "redirect:list-todos";
     }
