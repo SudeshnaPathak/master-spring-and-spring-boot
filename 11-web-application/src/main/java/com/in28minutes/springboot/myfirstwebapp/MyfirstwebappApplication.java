@@ -38,3 +38,8 @@ public class MyfirstwebappApplication {
 //In Spring MVC , we can use @SessionAttributes to store attributes in session
 //Request Scope -> Data active only for a single request , cannot be shared across multiple requests
 //Session Scope -> Data is available across multiple requests for a particular session
+
+//Validations with SpringBoot:
+//1. Add Spring Boot Starter Validation Dependency in pom.xml
+//2. Command Bean or Form Backing Object
+
