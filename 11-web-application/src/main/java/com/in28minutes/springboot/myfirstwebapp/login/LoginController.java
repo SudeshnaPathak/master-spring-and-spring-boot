@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -17,7 +18,7 @@ public class LoginController {
     public String oldLoginPage(@RequestParam String name , ModelMap model) { // Request Param is used to extract query parameter from the URL
 
         //In the Controller, if we want to send data to the View , we can use Model
-        model.put("name", name); // key , value
+        model.put("name", name); // key , value -> ${name} in the JSP
 
         logger.debug("Request Param is {}" , name); // Debug level log
         logger.info("Request Param is {}" , name);  // Info level log
@@ -27,8 +28,15 @@ public class LoginController {
         return "login"; // This will map to login.jsp
     }
 
-    @RequestMapping("login")
+    @RequestMapping(value = "login", method = RequestMethod.GET)
     public String goToLoginPage() {
         return "login";
+    }
+
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public String goToWelcomePage(@RequestParam String name , @RequestParam String password, ModelMap model) {
+        model.put("name", name);
+        model.put("password", password);
+        return "welcome";
     }
 }
