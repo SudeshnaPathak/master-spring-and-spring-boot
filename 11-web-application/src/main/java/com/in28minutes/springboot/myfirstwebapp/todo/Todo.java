@@ -7,16 +7,16 @@ public class Todo {
     private int id;
     private String username;
     private String description;
-    private LocalDate date;
+    private LocalDate targetDate;
     private boolean done;
 
     public Todo(int id,  String username, String description, LocalDate date , boolean done) {
         super();
         this.id = id;
-        this.done = done;
         this.username = username;
         this.description = description;
-        this.date = date;
+        this.targetDate = date;
+        this.done = done;
     }
 
     public int getId() {
@@ -43,13 +43,9 @@ public class Todo {
         this.description = description;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
+    public LocalDate getTargetDate() { return targetDate; }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
+    public void setTargetDate(LocalDate targetDate) { this.targetDate = targetDate;}
 
     public boolean isDone() {
         return done;
@@ -65,7 +61,7 @@ public class Todo {
                 "id=" + id +
                 ", username='" + username +
                 ", description='" + description +
-                ", date=" + date +
+                ", targetDate=" + targetDate +
                 ", done=" + done +
                 ']';
     }
