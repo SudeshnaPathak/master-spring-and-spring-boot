@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
 
-    private Logger logger = LoggerFactory.getLogger(getClass()); //Default log with slf4j
+    private final Logger logger = LoggerFactory.getLogger(getClass()); //Default log with slf4j
 
     //http://localhost:8080/login?name=Sudeshna
-    @RequestMapping("login")
-    public String goToLoginPage(@RequestParam String name , ModelMap model) { // Request Param is used to extract query parameter from the URL
+    @RequestMapping("login-old")
+    public String oldLoginPage(@RequestParam String name , ModelMap model) { // Request Param is used to extract query parameter from the URL
 
         //In the Controller, if we want to send data to the View , we can use Model
         model.put("name", name); // key , value
@@ -25,5 +25,10 @@ public class LoginController {
         //All levels below the configured level will be logged , Example : If the level is set to Info , Warn , Error will be logged but Debug will not be logged
 
         return "login"; // This will map to login.jsp
+    }
+
+    @RequestMapping("login")
+    public String goToLoginPage() {
+        return "login";
     }
 }

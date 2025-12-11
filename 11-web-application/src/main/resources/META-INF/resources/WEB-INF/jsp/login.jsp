@@ -3,6 +3,11 @@
     <title> Login Page </title>
 </head>
 <body>
-    Welcome to the Login Page ${name}!
+    Welcome to the Login Page!
+    <form method="POST">
+        Name: <input type="text" name="name"> <br>
+        Password: <input type="password" name="password"> <br>
+        <input type="submit">
+    </form>
 </body>
 </html>
