@@ -32,3 +32,9 @@ public class MyfirstwebappApplication {
 //4. Controller returns the View Name to DispatcherServlet
 //5. DispatcherServlet identifies the actual View using ViewResolver(Prefix + View Name + Suffix)
 //6. View is rendered with the data from the Model and HTTP Response is sent back to the Browser
+
+//When we put anything in Model , it is available only for the scope of that request
+//To maintain data across multiple requests , we can use HttpSession
+//In Spring MVC , we can use @SessionAttributes to store attributes in session
+//Request Scope -> Data active only for a single request , cannot be shared across multiple requests
+//Session Scope -> Data is available across multiple requests for a particular session
