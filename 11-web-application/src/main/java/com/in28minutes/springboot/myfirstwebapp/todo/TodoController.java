@@ -1,6 +1,8 @@
 package com.in28minutes.springboot.myfirstwebapp.todo;
 
 import jakarta.validation.Valid;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -24,7 +26,8 @@ public class TodoController {
 
     @RequestMapping("list-todos")
     public String listAllTodos(ModelMap model) {
-        List<Todo> todos = todoService.findByUsername("Sudeshna");
+        String username = getLoggedinUsername();
+        List<Todo> todos = todoService.findByUsername(username);
         model.addAttribute("todos" , todos);
         return "listTodos";
     }
@@ -32,7 +35,7 @@ public class TodoController {
     @RequestMapping(value = "add-todo" , method = RequestMethod.GET)
     public String showNewTodoPage(ModelMap model) {
 
-        String username = (String) model.get("name"); //Getting the username from the Session Attribute
+        String username = getLoggedinUsername();
 
         //1st Side Binding : From Bean to the form , Binding the todo object to the form
         Todo todo = new Todo(0 , username , "" , LocalDate.now().plusYears(1) , false);
@@ -41,7 +44,7 @@ public class TodoController {
     }
 
     @RequestMapping(value = "add-todo" , method = RequestMethod.POST)
-    public String addNewTodo(ModelMap model , @Valid Todo todo , BindingResult result) { //@Valid Ensure Validation before binding to todo object
+    public String addNewTodo(@Valid Todo todo , BindingResult result) { //@Valid Ensure Validation before binding to todo object
 
         //Bind form data directly to the fields in Todo Bean
         //Command Bean or Form Backing Object - todo
@@ -53,7 +56,7 @@ public class TodoController {
             return "todo";
         }
 
-        String username = (String)model.get("name");
+        String username = getLoggedinUsername();
         todoService.addTodo(username , todo.getDescription() , todo.getTargetDate() , false);
         return "redirect:list-todos";
     }
@@ -73,13 +76,18 @@ public class TodoController {
     }
 
     @RequestMapping(value = "update-todo" , method = RequestMethod.POST)
-    public String updateTodo(ModelMap model, @Valid Todo todo , BindingResult result) {
+    public String updateTodo(@Valid Todo todo , BindingResult result) {
         if (result.hasErrors()) {
             return "todo";
         }
-        String username = (String) model.get("name");
+        String username = getLoggedinUsername();
         todo.setUsername(username);
         todoService.updateTodo(todo);
         return "redirect:list-todos";
+    }
+
+    public String getLoggedinUsername(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getName();
     }
 }

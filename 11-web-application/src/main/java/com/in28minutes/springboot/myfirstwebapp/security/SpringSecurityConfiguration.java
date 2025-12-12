@@ -14,24 +14,29 @@ import java.util.function.Function;
 public class SpringSecurityConfiguration {
 
     //LDAP or Database or InMemory Authentication
-    //InMemoryUserDetailsManager(UserDetails... users) ~Constructor
 
     @Bean
     public InMemoryUserDetailsManager createUserDetailsManager(){
 
-        Function<String,String> passwordEncoder = input -> passwordEncoder().encode(input); //Lambda function to encode password, Whatever input is given to this function it will return the encoded password
+        UserDetails userDetails1 = CreateNewUser("in28minutes", "dummy");
+        UserDetails userDetails2 = CreateNewUser("Sudeshna", "dummy1");
+
+        //InMemoryUserDetailsManager(UserDetails... users) ~Constructor
+        return new InMemoryUserDetailsManager(userDetails1 , userDetails2);
+    }
+
+    private UserDetails CreateNewUser(String username, String password) {
+        Function<String,String> passwordEncoder = input -> passwordEncoder().encode(input);
         //Takes a string as input and returns the encoded string as output
-        //Here we are using the passwordEncoder function to encode the password while creating the userDetails object
+        //Here passwordEncoder function encodes the password while creating the userDetails object
 
         //Custom User Details Object
-        UserDetails userDetails = User.builder()
+        return User.builder()
                 .passwordEncoder(passwordEncoder)
-                .username("in28minutes")
-                .password("dummy")
+                .username(username)
+                .password(password)
                 .roles("USER","ADMIN")
                 .build();
-
-        return new InMemoryUserDetailsManager(userDetails);
     }
 
     @Bean
