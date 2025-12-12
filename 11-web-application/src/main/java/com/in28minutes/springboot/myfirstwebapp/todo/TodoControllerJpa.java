@@ -3,6 +3,7 @@ package com.in28minutes.springboot.myfirstwebapp.todo;
 import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,20 +14,22 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import java.time.LocalDate;
 import java.util.List;
 
-//@Controller
-@SessionAttributes("name") //We add the Session Attribute over every Controller which needs to access name , Session attribute name will be available in the Model of all those Controllers
-public class TodoController {
+@Controller
+@SessionAttributes("name")
+public class TodoControllerJpa {
 
     private final TodoService todoService;
+    private final TodoRepository todoRepository;
 
-    public TodoController(TodoService todoService) {
+    public TodoControllerJpa(TodoService todoService, TodoRepository todoRepository) {
         this.todoService = todoService;
+        this.todoRepository = todoRepository;
     }
 
     @RequestMapping("list-todos")
     public String listAllTodos(ModelMap model) {
         String username = getLoggedinUsername();
-        List<Todo> todos = todoService.findByUsername(username);
+        List<Todo> todos = todoRepository.findByUsername(username);
         model.addAttribute("todos" , todos);
         return "listTodos";
     }
@@ -36,7 +39,6 @@ public class TodoController {
 
         String username = getLoggedinUsername();
 
-        //1st Side Binding : From Bean to the form , Binding the todo object to the form
         Todo todo = new Todo(0 , username , "" , LocalDate.now().plusYears(1) , false);
         model.put("todo" , todo);
         return "todo";
@@ -44,12 +46,6 @@ public class TodoController {
 
     @RequestMapping(value = "add-todo" , method = RequestMethod.POST)
     public String addNewTodo(@Valid Todo todo , BindingResult result) { //@Valid Ensure Validation before binding to todo object
-
-        //Bind form data directly to the fields in Todo Bean
-        //Command Bean or Form Backing Object - todo
-        //We use this form backing object todo in the JSP using Spring Form Tags
-        //2 Way Binding : From Bean to the form and from the form to the Bean
-        //2nd Side Binding : From form to the Bean , Binding Form data to the todo object
 
         if(result.hasErrors()){
             return "todo";
@@ -69,7 +65,6 @@ public class TodoController {
     @RequestMapping(value = "update-todo" , method = RequestMethod.GET)
     public String showUpdateTodoPage(@RequestParam int id , ModelMap model) {
         Todo todo = todoService.findById(id);
-        //Bean to Form Binding
         model.put("todo" , todo);
         return "todo";
     }
