@@ -50,6 +50,7 @@ public class SpringSecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
+    //Spring Security Filter Chain(Default Configuration):-
     //All URLs are secured by default in Spring Security
     //A login form is shown for unauthenticated users
     //CSRF protection is enabled by default ~ disable it
@@ -57,14 +58,14 @@ public class SpringSecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
+        //Here we can customize the default security filter chain by Overriding the default configuration
         http.authorizeHttpRequests(
-                auth -> auth.anyRequest().authenticated());
-        http.formLogin(withDefaults());
+                auth -> auth.anyRequest().authenticated()); //All requests need to be authenticated
+        http.formLogin(withDefaults()); //Default Login Form
 
-        http.csrf(AbstractHttpConfigurer::disable);
+        http.csrf(AbstractHttpConfigurer::disable); //Disable CSRF Protection
 
-        http.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)); // Starting from SB 3.1.x
+        http.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)); //To enable H2 Console which uses frames
 
         return http.build();
     }
