@@ -22,3 +22,12 @@ public class RestfulWebServicesApplication {
 //Auto Configured : ErrorMvcAutoConfiguration ~ To Configure an Error Page
 
 //Tomcat is the default embedded server, it is also autoconfigured
+
+//Status Codes
+//200 - Success
+//201 - Resource Created
+//204 - No Content
+//404 - Resource not found
+//400 - Validation Error / Bad Request
+//401 - Unauthorized
+//500 - Server Error
