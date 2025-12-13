@@ -38,4 +38,9 @@ public class UserResource {
                         .toUri(); //Convert to URI
         return ResponseEntity.created(location).build(); //201 Created status with Location header
     }
+
+    @DeleteMapping("/users/{id}")
+    public void deleteUser(@PathVariable int id) {
+        service.deleteById(id);
+    }
 }
