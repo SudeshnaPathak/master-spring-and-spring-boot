@@ -11,3 +11,14 @@ public class RestfulWebServicesApplication {
 	}
 
 }
+
+//Magic happens cos of Starter Projects and Auto Configuration
+
+//Requests first go to a DispatcherServlet(Front Controller) url=[/]
+//DispatcherServlet maps the request to a specific Controller
+//DispatcherServlet is autoconfigured
+
+//Error Handling
+//Auto Configured : ErrorMvcAutoConfiguration ~ To Configure an Error Page
+
+//Tomcat is the default embedded server, it is also autoconfigured
