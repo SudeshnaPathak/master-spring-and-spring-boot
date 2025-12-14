@@ -47,3 +47,8 @@ public class RestfulWebServicesApplication {
 
 //Content Negotiation
 //Based on the Accept Header in the request, the response format is decided ~ JSON , XML , YAML etc.
+
+//HATEOAS ~ Hypermedia As The Engine Of Application State
+//Adding links to the response to navigate to related resources
+//HAL - Hypertext Application Language ~ Simple format that gives a consistent and easy way to hyperlink between resources in your API
+//Spring HATEOAS - Generate HAL responses with hyperlinks to resources , we implement HAL using Spring HATEOAS
