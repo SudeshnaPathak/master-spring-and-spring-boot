@@ -42,3 +42,8 @@ public class RestfulWebServicesApplication {
 //Swagger UI - A visual documentation of APIs
 //OpenAPI - A standard to define APIs(uses Swagger under the hood) ~Earlier known as Swagger Specification
 //http://localhost:8080/swagger-ui.html
+
+//Jakarta.validation.constraints package is used for validation annotations , there are a lot of annotations available for different types of validations.
+
+//Content Negotiation
+//Based on the Accept Header in the request, the response format is decided ~ JSON , XML , YAML etc.
