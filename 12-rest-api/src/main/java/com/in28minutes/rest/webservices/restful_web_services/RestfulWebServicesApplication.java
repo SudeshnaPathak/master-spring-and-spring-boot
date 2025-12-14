@@ -31,3 +31,9 @@ public class RestfulWebServicesApplication {
 //400 - Validation Error / Bad Request
 //401 - Unauthorized
 //500 - Server Error
+
+//Feild Validation:
+//Add dependency - spring-boot-starter-validation
+//Use Annotations - @Size , @Past , @NotNull , @Min , @Max etc.
+//Use @Valid in the Controller method parameter to enforce validation
+//Handle validation errors - MethodArgumentNotValidException
