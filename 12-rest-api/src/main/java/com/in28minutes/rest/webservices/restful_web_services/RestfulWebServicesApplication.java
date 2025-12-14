@@ -37,3 +37,8 @@ public class RestfulWebServicesApplication {
 //Use Annotations - @Size , @Past , @NotNull , @Min , @Max etc.
 //Use @Valid in the Controller method parameter to enforce validation
 //Handle validation errors - MethodArgumentNotValidException
+
+//Swagger and OpenAPI for API Documentation
+//Swagger UI - A visual documentation of APIs
+//OpenAPI - A standard to define APIs(uses Swagger under the hood) ~Earlier known as Swagger Specification
+//http://localhost:8080/swagger-ui.html
