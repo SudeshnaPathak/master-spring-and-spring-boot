@@ -2,6 +2,7 @@ package com.in28minutes.rest.webservices.restful_web_services.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Post {
@@ -10,6 +11,7 @@ public class Post {
     @GeneratedValue
     private Integer id;
 
+    @Size(min = 10 , message = "Description should have at least 10 characters")
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY) //Lazy fetching to avoid loading user unless needed
@@ -35,6 +37,14 @@ public class Post {
 
     public String getDescription() {
         return description;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setDescription(String description) {
