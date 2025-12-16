@@ -52,3 +52,8 @@ public class RestfulWebServicesApplication {
 //Adding links to the response to navigate to related resources
 //HAL - Hypertext Application Language ~ Simple format that gives a consistent and easy way to hyperlink between resources in your API
 //Spring HATEOAS - Generate HAL responses with hyperlinks to resources , we implement HAL using Spring HATEOAS
+
+//Spring Security
+//Intercept requests
+//Executes a series of filters ~ Filter Chain
+
