@@ -61,7 +61,7 @@ public class UserJpaResource {
     }
 
     @GetMapping("/jpa/users/{userId}/posts/{postId}")
-    public Post retrievePostForUser(@PathVariable int userId, @PathVariable int postId) {
+    public EntityModel<Post> retrievePostForUser(@PathVariable int userId, @PathVariable int postId) {
 
         Optional<User> user = userRepository.findById(userId);
 
@@ -76,7 +76,14 @@ public class UserJpaResource {
         if(post.get().getUser().getId() != userId)
             throw new PostNotFoundException("post id:"+postId+" user id:"+userId);
 
-        return post.get();
+        //HATEOAS implementation:
+        EntityModel<Post> entityModel = EntityModel.of(post.get());
+
+        WebMvcLinkBuilder link =  linkTo(methodOn(this.getClass()).retrievePostsForUser(userId));
+        entityModel.add(link.withRel("all-posts"));
+
+        return entityModel;
+
     }
 
     @PostMapping("/jpa/users")
