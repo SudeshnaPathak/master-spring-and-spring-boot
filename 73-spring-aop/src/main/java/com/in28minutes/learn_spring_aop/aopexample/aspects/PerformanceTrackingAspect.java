@@ -13,7 +13,9 @@ public class PerformanceTrackingAspect {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Around("com.in28minutes.learn_spring_aop.aopexample.aspects.CommonPointcutConfig.businessAndDataPackageConfig()") //Do something before and after method execution ~ AROUND Method Execution
+    //Do something before and after method execution ~ AROUND Method Execution
+//    @Around("com.in28minutes.learn_spring_aop.aopexample.aspects.CommonPointcutConfig.businessAndDataPackageConfig()")  //apply to all methods of both business and data package
+    @Around("com.in28minutes.learn_spring_aop.aopexample.aspects.CommonPointcutConfig.trackTimeAnnotation()") //apply to specific methods annotated with @TrackTime
     public Object findExecutionTime(ProceedingJoinPoint proceedingJoinPoint) throws Throwable { //ProceedingJoinPoint ~ Special JoinPoint that allows us to execute method
         //1.Intercept method call
         //2.Start timer
