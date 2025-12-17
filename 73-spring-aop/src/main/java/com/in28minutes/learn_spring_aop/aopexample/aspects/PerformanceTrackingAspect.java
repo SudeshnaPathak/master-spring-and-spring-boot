@@ -13,7 +13,7 @@ public class PerformanceTrackingAspect {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Around("execution(* com.in28minutes.learn_spring_aop.aopexample.*.*.*(..))") //Do something before and after method execution ~ AROUND Method Execution
+    @Around("com.in28minutes.learn_spring_aop.aopexample.aspects.CommonPointcutConfig.businessAndDataPackageConfig()") //Do something before and after method execution ~ AROUND Method Execution
     public Object findExecutionTime(ProceedingJoinPoint proceedingJoinPoint) throws Throwable { //ProceedingJoinPoint ~ Special JoinPoint that allows us to execute method
         //1.Intercept method call
         //2.Start timer

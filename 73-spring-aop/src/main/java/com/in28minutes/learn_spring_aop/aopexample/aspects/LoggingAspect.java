@@ -17,7 +17,7 @@ public class LoggingAspect {
     //execution(* PACKAGE.*.*(..))
     //execution(* com.in28minutes.learn_spring_aop.aopexample.business.*.*(..)) Where? ~ We want to intercept methods calls in business package
 
-    @Before("execution(* com.in28minutes.learn_spring_aop.aopexample.*.*.*(..))") //When? ~ Intercept before method execution
+    @Before("com.in28minutes.learn_spring_aop.aopexample.aspects.CommonPointcutConfig.allPackageConfigUsingBean()") //When? ~ Intercept before method execution
     public void logMethodCallBeforeExecution(JoinPoint joinPoint) {
 
         //JoinPoint ~ Details of the method being intercepted
@@ -27,13 +27,13 @@ public class LoggingAspect {
         logger.info("Before Aspect - {} is called with arguments: {}", joinPoint , joinPoint.getArgs());
     }
 
-    @After("execution(* com.in28minutes.learn_spring_aop.aopexample.*.*.*(..))") //Intercept after the method executes successfully or throws an exception
+    @After("com.in28minutes.learn_spring_aop.aopexample.aspects.CommonPointcutConfig.businessPackageConfig()") //Intercept after the method executes successfully or throws an exception
     public void logMethodCallAfterExecution(JoinPoint joinPoint) {
         logger.info("After Aspect - {} has executed", joinPoint);
     }
 
     @AfterThrowing(
-            pointcut = "execution(* com.in28minutes.learn_spring_aop.aopexample.*.*.*(..))",
+            pointcut = "com.in28minutes.learn_spring_aop.aopexample.aspects.CommonPointcutConfig.businessAndDataPackageConfig()",
             throwing = "exception"
     ) //Intercept only after the method throws an exception
     public void logMethodCallAfterException(JoinPoint joinPoint , Exception exception) {
@@ -41,7 +41,7 @@ public class LoggingAspect {
     }
 
     @AfterReturning(
-            pointcut = "execution(* com.in28minutes.learn_spring_aop.aopexample.*.*.*(..))",
+            pointcut = "com.in28minutes.learn_spring_aop.aopexample.aspects.CommonPointcutConfig.dataPackageConfig()",
             returning = "resultValue"
     ) //Intercept only after the method executes successfully
     public void logMethodCallAfterSuccessfulExecution(JoinPoint joinPoint , Object resultValue) {
