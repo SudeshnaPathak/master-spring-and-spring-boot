@@ -44,6 +44,6 @@ public class LearnSpringAopApplication implements CommandLineRunner {
 //1.Define Aspects ~Like Security , logging etc
 //2.Define point cuts where aspects will be applied ~Web Layer , Business Layer
 
-//2 FrameWorks:
+//FrameWorks(Weavers) to implement AOP in Spring:
 //1.Spring AOP ~ (not a complete AOP , popular solution)
 //2.ASpectJ ~ (complete AOP , rarely used , more flexible)
