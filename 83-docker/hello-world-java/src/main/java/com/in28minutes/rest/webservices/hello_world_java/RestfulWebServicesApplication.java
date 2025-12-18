@@ -12,4 +12,4 @@ public class RestfulWebServicesApplication {
 
 }
 
-//Run mvn clean install to build the jars under target directory
+

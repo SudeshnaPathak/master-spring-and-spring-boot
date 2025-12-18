@@ -1,5 +1,5 @@
 #FROM ~ Sets base image to OpenJDK 25 slim version
-FROM openjdk:26-ea-jdk-slim
+FROM openjdk:25-ea-jdk-slim
 
 #COPY ~ Copies the built jar files from target directory to the image and names it app.jar
 COPY target/*.jar app.jar
@@ -12,3 +12,6 @@ ENTRYPOINT ["java","-jar","/app.jar"]
 
 # docker build -t in28min/hello-world-docker:v1 . ~ Builds the Docker image with the specified tag
 # docker run -d -p 5000:5000 in28min/hello-world-docker:v1 ~Runs the Docker container in detached mode, mapping port 5000 of the host to port 5000 of the container
+
+# Run mvn clean install in local machine to build the jars under target directory and then copy them to the Docker image
+# NOT RECOMMENED AS IF WE RUN ON A DIFFERENT MACHINE, THE JARS MAY NOT BE PRESENT/OUTPUT MIGHT VARY
