@@ -43,3 +43,13 @@ public class LearnGradleApplication {
 //Build Spring Boot executable jar files
 //Build Spring Boot Docker images
 //Automatic dependency management for Spring Boot projects , no need to define versions for Spring Boot dependencies
+
+//Maven : Familiar , More IDE Support , More Plugins but XML Configs , Slower Builds , Less Flexible , More Verbose(Lengthy POM.xml) , Platform Dependant
+//Gradle : Faster Builds , More Flexible , Build Anything(May Complicate Build Files), Cross Platform Support , less Verbose but Less IDE Support , Steeper Learning Curve
+
+//Spring Framework & Spring Boot both use Gradle as a Build Tool
+//Spring Cloud uses Maven as the Build Tool
+
+//Maven Vs Gradle
+//If builds are taking too long , consider switching to Gradle
+//If builds are simple, consider sticking to Maven

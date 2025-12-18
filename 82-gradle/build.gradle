@@ -28,3 +28,10 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+//build.gradle is written using Groovy DSL & in Groovy script , java syntax is valid
+tasks.register('HelloWorld') {
+	doLast {
+		System.out.println('Hello World from Gradle')
+	}
+}
