@@ -27,3 +27,19 @@ public class LearnGradleApplication {
 //4.Same Project Layout as Maven
 
 //5.IDE Support for Gradle is still evolving
+
+//Build.gradle ~ all dependencies and plugins are defined here , groupId , version etc. It is similar to pom.xml in Maven
+//settings.gradle ~ project related settings are defined here , like artifactId , project name etc.
+//Build.gradle also makes use of Maven Central Repository to fetch dependencies
+
+//java plugin ~ Java compilation , testing , building jar files , Defines standard directory structure (src/main/java , src/test/java etc.)
+//Key Task: Build
+
+//Dependancy Management plugin ~ For Maven style dependency management
+//Eg: group: 'org.springframework.boot' , name: 'spring-boot-starter-webmvc' , version: '2.7.5'
+//short form : implementation 'org.springframework.boot:spring-boot-starter-webmvc:2.7.5'
+
+//Spring Boot plugin ~ Spring Boot support for Gradle
+//Build Spring Boot executable jar files
+//Build Spring Boot Docker images
+//Automatic dependency management for Spring Boot projects , no need to define versions for Spring Boot dependencies
