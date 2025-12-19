@@ -6,16 +6,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MyMathTest {
 
+    private final MyMath math = new MyMath();
+
     @Test
-    void calculateSum() {
+    void calculateSum_ThreeMemberArray() {
         //Absence of failure is a success
         //Test Conditions or Asserts
+        assertEquals(6, math.calculateSum(new int[]{1, 2, 3}));
+    }
 
-        int[] numbers = {1, 2, 3};
-        MyMath math = new MyMath();
-        int result = math.calculateSum(numbers);
-        System.out.println(result);
-        int expectedResult = 6;
-        assertEquals(expectedResult, result);
+    @Test
+    void calculateSum_EmptyArray() {
+        assertEquals(0, math.calculateSum(new int[]{}));
     }
 }
