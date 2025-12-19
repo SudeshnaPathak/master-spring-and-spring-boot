@@ -30,4 +30,4 @@ ENTRYPOINT [ "sh", "-c", "java -jar /app.jar" ]
 #docker run -d -p 5000:5000 in28min/hello-world-docker:v2
 
 #ADVANTAGE ~ Build doesn't make use of anything built in the local machine
-#DISADVANTAGE ~ Build stage makes the overall build time longer as it has to build the jars inside the image itself
+#DISADVANTAGE ~ Build stage makes the overall build time longer, as mvn clean package runs for every small change in the code
