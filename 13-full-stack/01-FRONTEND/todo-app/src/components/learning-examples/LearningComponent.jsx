@@ -4,6 +4,7 @@ import ThirdComponent from './ThirdComponent';
 import FourthComponent from './FourthComponent';
 import { FifthComponent } from './FirstComponent';
 //{} are used to import non-default exports ->Named imports
+import LearningJavaScript from './LearningJavaScript';
 
 export default function LearningComponent(){
 
@@ -20,6 +21,7 @@ export default function LearningComponent(){
             <ThirdComponent />
             <FourthComponent />
             <FifthComponent />
+            <LearningJavaScript />
         </div> // JSX element/tag
     );
 }
