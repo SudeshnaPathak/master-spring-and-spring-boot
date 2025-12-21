@@ -1,5 +1,5 @@
 import './App.css';
-import LearningComponent from './components/learning-examples/LearningComponent';
+import Counter from './components/counter/Counter';
 
 //App is the parent component
 function App() {
@@ -7,7 +7,7 @@ function App() {
   //Specify CSS Class - ClassName (instead of class in HTML)
   return (
     <div className="App">
-      <LearningComponent />
+      <Counter />
     </div> 
   );
 }
