@@ -66,7 +66,7 @@ When you create a new React app using Create React App, the project structure lo
 
         src/index.css - Global CSS styles for the entire application.
 
-3. `src/App.js` - Code for the App component, the main component of the application.
+3. `src/App.js` - Code for the App component, the main component of the application. Rest of the components are created as child components of App component.
 
         src/App.css - CSS styles specific to the App component.
         src/App.test.js - Unit Tests for the App component.
