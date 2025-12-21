@@ -89,6 +89,7 @@ The First Component that gets loaded when React Application starts. The rest of 
 4. State - Internal data store of a component to hold component data.
 5. Props - To pass data from one component to another component.
 
+### Hooks and Component Naming Conventions
 1. Hooks can be used to add state to functional components.
 2. lowercase tag names refer to HTML elements.
 3. Uppercase Component names refer to user-defined components.
