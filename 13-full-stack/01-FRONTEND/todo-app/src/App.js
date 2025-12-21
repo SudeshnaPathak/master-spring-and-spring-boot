@@ -1,24 +1,31 @@
 import './App.css';
 import { Component } from 'react';
 
-// App is the parent component
 //Function based components
+
+//App is the parent component
 function App() {
+  //JSX Elements must have closing tags
+  //return() : parenthesis makes it easy to write multi-line JSX ~ Why Parenthesis?
+  //lowercase tag names refer to HTML elements
+  //Uppercase Component names refer to user-defined components
+  //Specify CSS Class - ClassName (instead of class in HTML)
   return (
     <div className="App">
-      <FirstComponent></FirstComponent>
-      <SecondComponent></SecondComponent>
-      <ThirdComponent></ThirdComponent>
-      <FourthComponent></FourthComponent>
-    </div>
+      <FirstComponent />
+      <SecondComponent />
+      <ThirdComponent />
+      <FourthComponent />
+    </div> // JSX element/tag
   );
 }
 
-// First & Second Components are the child components of App component
+//Rest components are child components of App component
 function FirstComponent(){
   // Whatever we return here will be displayed by this component
+  // We return JSX view from here
   return (
-    <div className="FirstComponent">First Component</div>
+    <div className="FirstComponent">First Component</div> // JSX element/tag
   );
 }
 
@@ -41,7 +48,12 @@ class ThirdComponent extends Component{
 class FourthComponent extends Component{
   render(){
     return (
-      <div className="FourthComponent">Fourth Component</div>
+      // Wrapping multiple JSX elements inside an empty wrapper<>, as JSX expressions must have only one parent element, i.e one top-level tag
+      // We cannot return multiple JSX tags/elements from a component
+      <>
+        <div className="FourthComponent">Fourth Component</div>
+        <div className="FourthComponent">Fourth Component</div>
+      </>
     );
   }
 }

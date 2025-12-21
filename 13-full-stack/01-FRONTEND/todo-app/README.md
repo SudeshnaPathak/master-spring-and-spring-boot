@@ -89,6 +89,19 @@ The First Component that gets loaded when React Application starts. The rest of 
 4. State - Internal data store of a component to hold component data.
 5. Props - To pass data from one component to another component.
 
+1. Hooks can be used to add state to functional components.
+2. lowercase tag names refer to HTML elements.
+3. Uppercase Component names refer to user-defined components.
+
+## JSX Views with React
+
+1. React projects use JSX (JavaScript XML) to define the View part of a React component.
+2. JSX is stricter than HTML.
+3. JSX tags must be properly closed.
+4. JSX expressions must have only one parent element. JSX allows only one top-level tag to be returned from a component.
+5. Babel transpiler converts JSX to plain JavaScript before executing it in the browser.
+
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
