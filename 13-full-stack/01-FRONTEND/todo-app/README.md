@@ -53,23 +53,41 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 
 When you create a new React app using Create React App, the project structure looks like this:
 
-1. README.md - Documentation file for the project.
-2. package.json - Contains metadata about the project and dependencies defined.(similar to Maven pom.xml)
+1. `README.md` - Documentation file for the project.
+2. `package.json` - Contains metadata about the project and dependencies defined.(similar to Maven pom.xml)
 
-3. node_modules - Directory where project dependencies are downloaded.(npm downloads packages here)
+3. `node_modules` - Directory where project dependencies are downloaded.(npm downloads packages here)
 
 ### React Initialization
 
-1. public/index.html - The main HTML file that serves the React application. Contains root div element.
+1. `public/index.html` - The main HTML file that serves the React application. Contains root div element.
 
-2. src/index.js - Populates the root div in index.html with the App component.
+2. `src/index.js` - Populates the root div in index.html with the App component.
 
         src/index.css - Global CSS styles for the entire application.
 
-3. src/App.js - Code for the App component, the main component of the application.
+3. `src/App.js` - Code for the App component, the main component of the application.
 
         src/App.css - CSS styles specific to the App component.
         src/App.test.js - Unit Tests for the App component.
+
+
+## Why do we need React Components?
+
+Create separate components for each Page Element: Menu Component, Footer Component, Header Component, Login Component, Logout Component etc.
+This helps in Code modularisation and Reusability.React components always start with a Capital letter.
+
+### App Component
+
+The First Component that gets loaded when React Application starts. The rest of the components are created as the child components of App Component.
+
+### Parts of a React Component
+
+1. View - JSX or JavaScript XML to describe the UI structure of a React component.
+2. Logic - JavaScript code to define the component behaviour.
+3. Styles - CSS to define the styling of the component.
+4. State - Internal data store of a component to hold component data.
+5. Props - To pass data from one component to another component.
 
 ## Learn More
 
