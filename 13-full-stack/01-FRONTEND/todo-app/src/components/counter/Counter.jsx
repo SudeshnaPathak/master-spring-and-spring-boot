@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import './Counter.css';
+import { useState } from 'react'
+import './Counter.css'
 
-export default function Counter()
+export default function Counter({by = 1})
 {
     // useState is a React Hook that allows us to add state to functional components.
     // It returns an array with two elements: the current state value and a function to update that state value.
@@ -10,12 +10,13 @@ export default function Counter()
 
     function incrementCounterFunction()
     {
-        setCount(count + 1); //We are calling the setCount function to update the count state variable
+        setCount(count + by) //We are calling the setCount function to update the count state variable
     }
 
     function decrementCounterFunction()
     {
-        setCount(count - 1); 
+        if(count - by >= 0)
+        setCount(count - by)
     }
 
     return (
@@ -25,14 +26,15 @@ export default function Counter()
                 <button className="counterButton" 
                 onClick={incrementCounterFunction}
                 // style = {buttonStyle}
-                >+1 </button>
+                >+{by} </button>
                  <button className="counterButton" 
                 onClick={decrementCounterFunction}
-                >-1 </button>
+                >-{by} </button>
             </div>
         </div>
-    );
+    )
 }
+
 
 //  If we use parentheses here like incrementCounterFunction() , the function will be called during the rendering itself which is not what we want. We want to call it only when the button is clicked.
 
