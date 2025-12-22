@@ -86,11 +86,11 @@ The First Component that gets loaded when React Application starts. The rest of 
 1. View - JSX or JavaScript XML to describe the UI structure of a React component.
 2. Logic - JavaScript code to define the component behaviour.
 3. Styles - CSS to define the styling of the component.
-4. State - Internal data store of a component to hold component data.
+4. State - Built-in React object to hold data that may change over the lifetime of the component.
 5. Props - To pass data from one component to another component.
 
 ### Hooks and Component Naming Conventions
-1. Hooks can be used to add state to functional components.
+1. Hooks(useState) can be used to add state to functional components.
 2. lowercase tag names refer to HTML elements.
 3. Uppercase Component names refer to user-defined components.
 
