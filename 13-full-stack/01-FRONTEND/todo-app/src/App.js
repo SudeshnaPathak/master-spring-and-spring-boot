@@ -4,15 +4,16 @@ import Counter from './components/counter/Counter';
 //App is the parent component
 function App() {
 
-  //Specify CSS Class - ClassName (instead of class in HTML)
+  //Specify CSS Class - ClassName ->Styling
+  
   return (
     <div className="App">
       <Counter/>
-      <Counter by={2}/>
-      <Counter by={5}/>
     </div> 
-  )
+  ) 
 }
+
+//Props in React:
 
 //<PlayingWithProps property1 = "value1" property2 = "value2"/>
 

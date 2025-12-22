@@ -1,59 +1,60 @@
 import { useState } from 'react'
+import CounterButton from './CounterButton'
 import './Counter.css'
 
-export default function Counter({by = 1})
+
+export default function Counter()
 {
     // useState is a React Hook that allows us to add state to functional components.
     // It returns an array with two elements: the current state value and a function to update that state value.
-    //Eg : [0 , f]
-    const [count , setCount] = useState(0); // Initializing count state variable to 0
+    //Eg : [0 , f] where 0 is the initial value of the state variable and f is the function to update the state variable.
 
-    function incrementCounterFunction()
+    const [count , setCount] = useState(0); // -> State , initial value of count is 0
+
+    //-> Logic to increment , decrement and reset the counter
+
+    function incrementCounterParentFunction(by) 
     {
         setCount(count + by) //We are calling the setCount function to update the count state variable
     }
 
-    function decrementCounterFunction()
+    function decrementCounterParentFunction(by)
     {
-        if(count - by >= 0)
-        setCount(count - by)
+        //To prevent count from going negative
+        if(count - by >= 0) setCount(count - by)
+        else setCount(0)
     }
 
-    return (
-        <div className="Counter">
-            <span className="count">{count}</span> 
+    function resetCounter()
+    {
+        setCount(0)
+    }
+
+    return(
+        <>
+            <CounterButton by={1} 
+            incrementMethod = {incrementCounterParentFunction} 
+            decrementMethod = {decrementCounterParentFunction}/>
+            <CounterButton by={2} 
+            incrementMethod = {incrementCounterParentFunction} 
+            decrementMethod = {decrementCounterParentFunction}/>
+            <CounterButton by={5} 
+            incrementMethod = {incrementCounterParentFunction} 
+            decrementMethod = {decrementCounterParentFunction}/>
+            <span className="totalCount">{count}</span> 
             <div>
-                <button className="counterButton" 
-                onClick={incrementCounterFunction}
-                // style = {buttonStyle}
-                >+{by} </button>
-                 <button className="counterButton" 
-                onClick={decrementCounterFunction}
-                >-{by} </button>
+            <button className="resetButton" onClick={resetCounter}>Reset</button>
             </div>
-        </div>
-    )
+        </>
+    ) //-> View
 }
 
 
-//  If we use parentheses here like incrementCounterFunction() , the function will be called during the rendering itself which is not what we want. We want to call it only when the button is clicked.
-
 // Two options to style in React:
 // 1. Using CSS file (as done here) - Counter.css 
-// 2. Using inline styles (as commented out in the button element)
+// 2. Using inline styles using style attribute inside the element 
 
-
-// const buttonStyle = {
-//     'fontSize' : '16px',
-//     'backgroundColor' : '#00a5ab',
-//     'width' : '100px',
-//     'margin' : '10px',          
-//     'color' : 'white',
-//     'padding' : '15px',
-//     'borderRadius' : '30px'
-// }
-
-// style attribute in JSX takes a JavaScript object instead of a string as in HTML. Hence we define buttonStyle as an object and pass it to the style attribute.
+//HTML vs React DOM Manipulation:
 
 //In HTML, A HTML page is represented as a DOM (Document Object Model) tree structure. Each element in HTML is a node in the DOM. We need to update the DOM to update in the UI. But updating the DOM is an expensive operation.
 
