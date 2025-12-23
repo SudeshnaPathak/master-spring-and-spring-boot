@@ -1,5 +1,5 @@
 import './App.css';
-import Counter from './components/counter/Counter';
+import TodoApp from './components/todo/TodoApp.jsx';
 
 //App is the parent component
 function App() {
@@ -8,10 +8,12 @@ function App() {
   
   return (
     <div className="App">
-      <Counter/>
+      <TodoApp/>
     </div> 
   ) 
 }
+
+//Rest components are child components of App component
 
 //Props in React:
 
@@ -40,5 +42,4 @@ function App() {
 
 export default App
 
-//Rest components are child components of App component
 
