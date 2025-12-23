@@ -33,23 +33,11 @@ function LoginComponent(){
        }
     }
 
-    function SuccessMessageComponent(){
-        if(showSuccessMessage)
-            return <div>Authenticated Successfully</div>
-        return null
-        }
-
-    function ErrorMessageComponent(){
-        if(showErrorMessage)
-            return <div>Authentication Failed. Please check your Credentials</div>
-        return null
-    }
-
     return(
         <div className="Login">
             <div className="LoginForm">
-                <SuccessMessageComponent/>
-                <ErrorMessageComponent/>
+                {showSuccessMessage && <div>Authenticated Successfully</div>}
+                {showErrorMessage && <div>Authentication Failed. Please check your Credentials</div>}
                 <div>
                     <label>User Name</label>
                     <input type="text" name="username" value={username} onChange={handleUsername}/>
@@ -70,6 +58,10 @@ function LoginComponent(){
 //Whenever something changes in the input feild , onChange event is fired
 //and event handler updates the state variable
 //whenever state variable is updated , the feild element is also updated
+
+//Conditional Rendering in React
+//true && Anything -> Anything
+//false && Anything -> false 
 
 // function WelcomeComponent(){
 //     return(
