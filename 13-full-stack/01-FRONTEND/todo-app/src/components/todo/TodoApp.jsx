@@ -1,14 +1,15 @@
 import { useState } from 'react'
-import { BrowserRouter , Routes , Route , useNavigate} from 'react-router-dom'
+import { BrowserRouter , Routes , Route , useNavigate , useParams} from 'react-router-dom'
 import './TodoApp.css'
 export default function TodoApp() {
+
     return(
         <div className="TodoApp">
             <BrowserRouter>
                 <Routes>
                     <Route path='/' element={<LoginComponent/>} />
                     <Route path='/login' element={<LoginComponent/>} />
-                    <Route path='/welcome' element={<WelcomeComponent/>} />
+                    <Route path='/welcome/:username' element={<WelcomeComponent/>} />
                     <Route path='*' element={<ErrorComponent/>} />
                 </Routes>
             </BrowserRouter>            
@@ -17,6 +18,7 @@ export default function TodoApp() {
 }
 
 function LoginComponent(){
+
     const [username , setUsername] = useState('in28minutes')
     const [password , setPassword] = useState('')
     const [showSuccessMessage , setShowSuccessMessage] = useState(false)
@@ -35,7 +37,7 @@ function LoginComponent(){
        if(username==='in28minutes' && password==='dummy'){
             setShowSuccessMessage(true)
             setShowErrorMessage(false)
-            navigate('/welcome') 
+            navigate(`/welcome/${username}`) //navigating to welcome route
        } else {
             setShowSuccessMessage(false)
             setShowErrorMessage(true)
@@ -65,15 +67,19 @@ function LoginComponent(){
 }
 
 function WelcomeComponent(){
+
+    const {username} = useParams() //hook to get path variables , object is destructured to get username
+    
     return(
         <div className="WelcomeComponent">
-            <h1>Welcome in28minutes</h1>
+            <h1>Welcome {username}</h1>
             <div>Welcome Component</div>
         </div>
     )
 }
 
 function ErrorComponent(){
+
     return(
         <div className="ErrorComponent">
            <h1>We are working really hard!</h1>
@@ -94,6 +100,8 @@ function ErrorComponent(){
 //React Router Dom ~ Library to handle routing in React Application
 //BrowserRouter -> Routes -> Route
 //useNavigate -> Hook to navigate to different route 
+
+//useParams -> Hook to get path variables from the URL
 
 
 
