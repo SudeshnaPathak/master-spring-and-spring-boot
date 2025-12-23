@@ -1,10 +1,16 @@
 import { useState } from 'react'
+import { BrowserRouter , Routes , Route , useNavigate} from 'react-router-dom'
 import './TodoApp.css'
 export default function TodoApp() {
     return(
         <div className="TodoApp">
-            <LoginComponent/>
-            {/* <WelcomeComponent/> */}
+            <BrowserRouter>
+                <Routes>
+                    <Route path='/' element={<LoginComponent/>} />
+                    <Route path='/login' element={<LoginComponent/>} />
+                    <Route path='/welcome' element={<WelcomeComponent/>} />
+                </Routes>
+            </BrowserRouter>            
         </div>
     )
 }
@@ -14,6 +20,7 @@ function LoginComponent(){
     const [password , setPassword] = useState('')
     const [showSuccessMessage , setShowSuccessMessage] = useState(false)
     const [showErrorMessage , setShowErrorMessage] = useState(false)
+    const navigate = useNavigate() //hook to navigate to a route
 
     function handleUsername(event){
         setUsername(event.target.value)
@@ -27,6 +34,7 @@ function LoginComponent(){
        if(username==='in28minutes' && password==='dummy'){
             setShowSuccessMessage(true)
             setShowErrorMessage(false)
+            navigate('/welcome') 
        } else {
             setShowSuccessMessage(false)
             setShowErrorMessage(true)
@@ -54,6 +62,14 @@ function LoginComponent(){
     )
 }
 
+function WelcomeComponent(){
+    return(
+        <div className="Welcome">
+            Welcome Component
+        </div>
+    )
+}
+
 //Controlled Component - Input feild whose value is controlled by React state variable
 //Whenever something changes in the input feild , onChange event is fired
 //and event handler updates the state variable
@@ -63,10 +79,9 @@ function LoginComponent(){
 //true && Anything -> Anything
 //false && Anything -> false 
 
-// function WelcomeComponent(){
-//     return(
-//         <div className="Welcome">
-//             Welcome Component
-//         </div>
-//     )
-// }
+//React Router Dom ~ Library to handle routing in React Application
+//BrowserRouter -> Routes -> Route
+//useNavigate -> Hook to navigate to different route 
+
+
+
