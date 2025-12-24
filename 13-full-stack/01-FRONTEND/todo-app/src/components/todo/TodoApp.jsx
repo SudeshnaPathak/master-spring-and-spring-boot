@@ -5,15 +5,20 @@ export default function TodoApp() {
 
     return(
         <div className="TodoApp">
+
             <BrowserRouter>
+                <HeaderComponent/>
                 <Routes>
                     <Route path='/' element={<LoginComponent/>} />
                     <Route path='/login' element={<LoginComponent/>} />
                     <Route path='/welcome/:username' element={<WelcomeComponent/>} />
                     <Route path='/todos' element={<ListTodosComponent/>} />
+                    <Route path='/logout' element={<LogoutComponent/>} />
                     <Route path='*' element={<ErrorComponent/>} />
                 </Routes>
-            </BrowserRouter>            
+                <FooterComponent/>
+            </BrowserRouter>  
+
         </div>
     )
 }
@@ -102,10 +107,10 @@ function ListTodosComponent(){
                   ]
 
     return(
-        <div className="ListTodosComponent">
+        <div className="container">
            <h1>Things You want to Do!</h1>
            <div>
-                <table>
+                <table className="table">
                     <thead>
                         <tr>
                             <td>Id</td>
@@ -134,6 +139,53 @@ function ListTodosComponent(){
     )
 }
 
+function HeaderComponent(){
+
+    return(
+            <header className="border-bottom border-light border-5 mb-5 p-2">
+            <div className="container">
+                <div className="row">
+                    <nav className="navbar navbar-expand-lg">
+                        <a className="navbar-brand ms-2 fs-2 fw-bold text-black" href="https://www.in28minutes.com">in28minutes</a>
+                        <div className="collapse navbar-collapse">
+                            <ul className="navbar-nav">
+                                <li className="nav-item fs-5"><Link className="nav-link" to="/welcome/in28minutes">Home</Link></li>
+                                <li className="nav-item fs-5"><Link className="nav-link" to="/todos">Todos</Link></li>
+                            </ul>
+                        </div>
+                        <ul className="navbar-nav">
+                            <li className="nav-item fs-5"><Link className="nav-link" to="/login">Login</Link></li>
+                            <li className="nav-item fs-5"><Link className="nav-link" to="/logout">Logout</Link></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+    )
+}
+
+function FooterComponent(){
+
+    return(
+        <footer className="Footer">
+            <div className="container">
+                Footer
+            </div>
+        </footer>
+    )
+}
+
+function LogoutComponent(){
+
+    return(
+        <div className="LogoutComponent">
+           <h1>You are logged out!</h1>
+           <div>Thank you for using our App. Come back Soon!</div>
+        </div>
+    )
+}
+
 //Controlled Component - Input feild whose value is controlled by React state variable
 //Whenever something changes in the input feild , onChange event is fired
 //and event handler updates the state variable
@@ -150,6 +202,7 @@ function ListTodosComponent(){
 //useParams -> Hook to get path variables from the URL
 
 //Link -> Component to navigate to different route without reloading the entire page in SPA
+//Link can only be used for components inside BrowserRouter
 
 
 
