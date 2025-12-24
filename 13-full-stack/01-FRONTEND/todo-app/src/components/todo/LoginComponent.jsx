@@ -61,3 +61,6 @@ export default function LoginComponent(){
 
 //useNavigate -> Hook to navigate to different route 
 
+//When we store something in state variable of a component
+//and navigate to another component , the state variable is lost
+//To persist the data across components we can use Context
