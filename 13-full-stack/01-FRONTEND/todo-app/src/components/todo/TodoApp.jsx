@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BrowserRouter , Routes , Route , useNavigate , useParams} from 'react-router-dom'
+import { BrowserRouter , Routes , Route , useNavigate , useParams, Link } from 'react-router-dom'
 import './TodoApp.css'
 export default function TodoApp() {
 
@@ -74,7 +74,9 @@ function WelcomeComponent(){
     return(
         <div className="WelcomeComponent">
             <h1>Welcome {username}</h1>
-            <div>Welcome Component</div>
+            <div>
+                Manage your Todos <Link to="/todos">here</Link>
+            </div>
         </div>
     )
 }
@@ -91,10 +93,12 @@ function ErrorComponent(){
 
 function ListTodosComponent(){
 
+    const today = new Date()
+    const targetDate = new Date(today.getFullYear()+12 , today.getMonth() , today.getDay())
     const todos = [
-                    {id : 1 , description : 'Learn AWS'},
-                    {id : 2 , description : 'Learn DevOps'},
-                    {id : 3 , description : 'Learn Full Stack Development'}
+                    {id : 1 , description : 'Learn AWS' , done : false , targetDate : targetDate},
+                    {id : 2 , description : 'Learn DevOps', done : false , targetDate : targetDate},
+                    {id : 3 , description : 'Learn Full Stack Development' , done : false , targetDate : targetDate}
                   ]
 
     return(
@@ -106,6 +110,8 @@ function ListTodosComponent(){
                         <tr>
                             <td>Id</td>
                             <td>Description</td>
+                            <td>Is Done?</td>
+                            <td>Target Date</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -115,6 +121,8 @@ function ListTodosComponent(){
                                     <tr key={todo.id}>
                                         <td>{todo.id}</td>
                                         <td>{todo.description}</td>
+                                        <td>{todo.done.toString()}</td>
+                                        <td>{todo.targetDate.toDateString()}</td>
                                     </tr>
                                 )
                             )
@@ -140,6 +148,8 @@ function ListTodosComponent(){
 //useNavigate -> Hook to navigate to different route 
 
 //useParams -> Hook to get path variables from the URL
+
+//Link -> Component to navigate to different route without reloading the entire page in SPA
 
 
 
