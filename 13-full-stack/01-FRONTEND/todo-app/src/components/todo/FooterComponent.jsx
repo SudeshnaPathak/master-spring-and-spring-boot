@@ -1,9 +1,8 @@
-import { useContext } from "react"
-import { AuthContext } from "./security/AuthContext"
+import { useAuth } from "./security/AuthContext"
 
 export default function FooterComponent(){
 
-    const authContext = useContext(AuthContext) //hook to consume the context
+    const authContext = useAuth()
     console.log(`Footer Component: ${authContext.number}`)
 
     return(
