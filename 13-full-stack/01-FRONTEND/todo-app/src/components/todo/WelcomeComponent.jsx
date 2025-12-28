@@ -1,14 +1,16 @@
 import axios from 'axios'
+import { useState } from 'react'
 import {useParams, Link } from 'react-router-dom'
 
 export default function WelcomeComponent(){
 
     const {username} = useParams() //hook to get path variables, object is destructured to get username
+    const [message , setMessage] = useState(null);
     
     function callHelloWorldRestAPI(){
         console.log("called")
         //axios to call REST API
-        axios.get('http://localhost:8080/hello-world')          //Returns a Promise on a GET request to the specified URL
+        axios.get('http://localhost:8080/hello-world-bean')          //Returns a Promise on a GET request to the specified URL
              .then((response) => successfulResponse(response))  //Callback for successful response
              .catch((error) => errorResponse(error))            //Callback for error response
              .finally(() => console.log('cleanup'))             //Callback for cleanup activity ~ always executed
@@ -16,6 +18,7 @@ export default function WelcomeComponent(){
 
     function successfulResponse(response){
         console.log(response)
+        setMessage(response.data.message)
     }
 
     function errorResponse(error){
@@ -31,6 +34,7 @@ export default function WelcomeComponent(){
             <div>
                 <button className="btn btn-success m-5" onClick={callHelloWorldRestAPI}>Call Hello World</button>
             </div>
+            <div className="text-info">{message}</div>
         </div>
     )
 }
