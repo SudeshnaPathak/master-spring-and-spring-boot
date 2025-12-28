@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import {useParams, Link } from 'react-router-dom'
-import { retrieveHelloWorldBean } from './api/HelloWorldApiService';
+import {retrieveHelloWorldPathVariable} from './api/HelloWorldApiService';
 
 export default function WelcomeComponent(){
 
@@ -8,13 +8,13 @@ export default function WelcomeComponent(){
     const [message , setMessage] = useState(null);
     
     function callHelloWorldRestAPI(){
-        
-        console.log("called")
-       
-        retrieveHelloWorldBean()                           //Returns a Promise
-        .then((response) => successfulResponse(response))  //Callback for successful response
-        .catch((error) => errorResponse(error))            //Callback for error response
-        .finally(() => console.log('cleanup'))             //Callback for cleanup activity ~ always executed
+
+        console.log("called")        
+
+        retrieveHelloWorldPathVariable(username)              //Returns a Promise
+        .then((response) => successfulResponse(response))     //Callback for successful response
+        .catch((error) => errorResponse(error))               //Callback for error response
+        .finally(() => console.log('cleanup'))                //Callback for cleanup activity ~ always executed
     }
 
     function successfulResponse(response){
