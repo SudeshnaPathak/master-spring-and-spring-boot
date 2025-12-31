@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { retrieveAllTodosForUsernameApi , deleteTodoApi} from "./api/TodoApiService"
+import { useAuth } from "./security/AuthContext"
 
 export default function ListTodosComponent(){
 
@@ -13,19 +14,21 @@ export default function ListTodosComponent(){
 
     const[todos , setTodos] = useState([])
     const[message , setMessage] = useState(null)
+    const authContext = useAuth()
+    const username = authContext.username
     
     //UseEffect hook to call refreshTodos as soon as the component is loaded 
     // [] ensures it runs only once , i.e when the component is loaded
     useEffect(() => refreshTodos() , []) 
 
     function refreshTodos(){
-        retrieveAllTodosForUsernameApi('Sudeshna')
+        retrieveAllTodosForUsernameApi(username)
         .then(response => setTodos(response.data))
         .catch(error => console.log(error))
     }
 
     function deleteTodo(id){
-        deleteTodoApi('Sudeshna' , id)
+        deleteTodoApi(username , id)
         .then( () => {
             setMessage(`Delete of todo with id=${id} successful`)
             refreshTodos()

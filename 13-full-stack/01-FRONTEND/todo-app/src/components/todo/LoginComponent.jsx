@@ -5,7 +5,7 @@ import { useAuth } from './security/AuthContext'
 
 export default function LoginComponent(){
 
-    const [username , setUsername] = useState('in28minutes')
+    const [username , setUsername] = useState('Sudeshna')
     const [password , setPassword] = useState('')
     const [showErrorMessage , setShowErrorMessage] = useState(false)
     const navigate = useNavigate() //hook to navigate to a route
