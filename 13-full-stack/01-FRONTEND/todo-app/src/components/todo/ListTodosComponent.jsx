@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { retrieveAllTodosForUsernameApi , deleteTodoApi} from "./api/TodoApiService"
 import { useAuth } from "./security/AuthContext"
+import { useNavigate } from "react-router-dom"
 
 export default function ListTodosComponent(){
 
@@ -16,6 +17,7 @@ export default function ListTodosComponent(){
     const[message , setMessage] = useState(null)
     const authContext = useAuth()
     const username = authContext.username
+    const navigate = useNavigate()
     
     //UseEffect hook to call refreshTodos as soon as the component is loaded 
     // [] ensures it runs only once , i.e when the component is loaded
@@ -35,6 +37,11 @@ export default function ListTodosComponent(){
         })
         .catch( error => console.log(error))
     }
+
+    function updateTodo(id){
+        console.log('update ' + id)
+        navigate(`/todo/${id}`)
+    }
     
     return(
         <div className="container">
@@ -48,6 +55,7 @@ export default function ListTodosComponent(){
                             <th>Is Done?</th>
                             <th>Target Date</th>
                             <th>Delete</th>
+                            <th>Update</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,6 +67,7 @@ export default function ListTodosComponent(){
                                         <td>{todo.done.toString()}</td>
                                         <td>{todo.targetDate.toString()}</td>
                                         <td><button className="btn btn-warning" onClick={() => deleteTodo(todo.id)}>Delete</button></td>
+                                        <td><button className="btn btn-success" onClick={() => updateTodo(todo.id)}>Update</button></td>
                                     </tr>
                                 )
                             )
