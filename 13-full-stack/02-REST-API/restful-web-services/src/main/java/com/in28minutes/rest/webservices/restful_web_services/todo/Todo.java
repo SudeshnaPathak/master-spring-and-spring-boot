@@ -2,9 +2,10 @@ package com.in28minutes.rest.webservices.restful_web_services.todo;
 
 import java.time.LocalDate;
 
+
 public class Todo {
 
-    private int id;
+    private Integer id;   // Changed to Integer to handle null values
     private String username;
     private String description;
     private LocalDate targetDate;
@@ -12,7 +13,8 @@ public class Todo {
 
     public Todo(){}
 
-    public Todo(int id, String username, String description, LocalDate targetDate, boolean done) {
+    public Todo(Integer id, String username, String description, LocalDate targetDate, boolean done) {
+        super();
         this.id = id;
         this.username = username;
         this.description = description;

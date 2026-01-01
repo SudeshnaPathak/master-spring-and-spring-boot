@@ -1,8 +1,9 @@
-import { useParams } from "react-router-dom"
-import { retrieveTodoApi } from "./api/TodoApiService"
+import { useNavigate, useParams } from "react-router-dom"
+import { createTodoApi, retrieveTodoApi, updateTodoApi } from "./api/TodoApiService"
 import { useEffect, useState } from "react"
 import { useAuth } from "./security/AuthContext"
 import { ErrorMessage, Field, Form, Formik } from "formik"
+import moment from "moment"
 
 export default function TodoComponent(){
     const {id} = useParams()
@@ -10,23 +11,46 @@ export default function TodoComponent(){
     const username = authContext.username
     const [description , setDescription] = useState('')
     const [targetDate , setTargetDate] = useState('')
+    const navigate = useNavigate()
 
     useEffect( () => retrieveTodo() , [id] ) 
 
     function retrieveTodo(){
-        retrieveTodoApi(username , id)
-        .then( response => 
+        if(id != '-1')
         {
-            setDescription(response.data.description)
-            setTargetDate(response.data.targetDate)
-        })
-        .catch( error => console.log(error))
+            retrieveTodoApi(username , id)
+            .then( response => 
+            {
+                setDescription(response.data.description)
+                setTargetDate(response.data.targetDate)
+            })
+            .catch( error => console.log(error))
+        }
     }
     
     //Formik is a library to handle forms in react easily
     //Whatever details we will submit in the form , will be captured in values, this is handled by formik
     function onSubmit(values){
-        console.log(values)
+        const todo = {
+            id: id,
+            username: username,
+            description: values.description,
+            targetDate: values.targetDate,
+            done: false
+        }
+        if(id == -1){
+            //Create new todo
+             createTodoApi(username , todo)
+            .then( response => navigate('/todos'))
+            .catch( error => console.log(error))
+        }
+        else{
+            //Update existing todo
+             updateTodoApi(username , id , todo)
+            .then( response => navigate('/todos'))
+            .catch( error => console.log(error))
+        }
+       
     }
 
     //Validation function for formik forms, it should return an object with error messages
@@ -37,7 +61,7 @@ export default function TodoComponent(){
             errors.description = "Enter at least 5 characters in description"
         }
 
-        if(values.targetDate.length === 0){
+        if(values.targetDate === null || values.targetDate === '' || !moment(values.targetDate).isValid()){
             errors.targetDate = "Enter a valid target date"
         }
 
