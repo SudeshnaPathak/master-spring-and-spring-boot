@@ -1,29 +1,39 @@
 package com.in28minutes.mockito.mockito_demo.business;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class) //To automate Creation, Mocking and Injection of Mocks
 class SomeBusinessImplMockTest {
+
+    @Mock //Creates a Mock for DataService
+    private DataService dataServiceMock;
+
+    @InjectMocks //Injects multiple mocks into the class under test
+    private SomeBusinessImpl businessImpl;
 
     @Test
     void findTheGreatestFromAllData_basicScenario () {
-        DataService dataServiceMock = mock(DataService.class);
         when(dataServiceMock.retrieveAllData()).thenReturn(new int[] {25 , 15 , 5}); //When retrieveAllData() is called, return this array
-        SomeBusinessImpl business = new SomeBusinessImpl(dataServiceMock);
-        int result = business.findTheGreatestFromAllData();
-        assertEquals(25 , result);
+        assertEquals(25 , businessImpl.findTheGreatestFromAllData());
     }
 
     @Test
     void findTheGreatestFromAllData_withOneValue () {
-        DataService dataServiceMock = mock(DataService.class);
-        when(dataServiceMock.retrieveAllData()).thenReturn(new int[] {35}); //When retrieveAllData() is called, return this array
-        SomeBusinessImpl business = new SomeBusinessImpl(dataServiceMock);
-        int result = business.findTheGreatestFromAllData();
-        assertEquals(35 , result);
+        when(dataServiceMock.retrieveAllData()).thenReturn(new int[] {35});
+        assertEquals(35 , businessImpl.findTheGreatestFromAllData());
+    }
+
+    @Test
+    void findTheGreatestFromAllData_EmptyArray () {
+        when(dataServiceMock.retrieveAllData()).thenReturn(new int[] {});
+        assertEquals(Integer.MIN_VALUE , businessImpl.findTheGreatestFromAllData());
     }
 
 }
