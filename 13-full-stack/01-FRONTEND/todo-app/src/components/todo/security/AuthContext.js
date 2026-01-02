@@ -11,7 +11,9 @@ export default function AuthProvider({ children }) { //children -> all the child
     //3. Put some state in the context
     const [isAuthenticated , setAuthenticated] = useState(false)
     const [username , setUsername] = useState(null)
+    const [token , setToken] = useState(null)
 
+    //Uncomment this for dummy authentication w/o Spring Security 
     // function login(username , password){
     //     if(username==='Sudeshna' && password==='dummy'){
     //         setAuthenticated(true)
@@ -25,23 +27,41 @@ export default function AuthProvider({ children }) { //children -> all the child
     // }
 
 
-    function login(username , password){
+    async function login(username , password){
 
         const baToken = 'Basic ' + window.btoa(username + ':' + password) //Base64 encoding of username and password
 
-        executeBasicAuthenticationService(baToken)
-        .then( response => console.log(response))
-        .catch( error => console.log(error))
-        
-        setAuthenticated(false)
+        //async await pattern , where await is used to wait for the call to complete and return the response
+        //and ensure that the code is executed in sequence
+
+        try{
+            const response = await executeBasicAuthenticationService(baToken)
+
+            if(response.status === 200){
+                setAuthenticated(true)
+                setUsername(username)
+                setToken(baToken)
+                return true
+            } else {
+                logout()
+                return false
+            }
+
+        }catch(error){
+            logout()
+            return false
+        }
+       
     }
 
     function logout(){
         setAuthenticated(false)
+        setUsername(null)
+        setToken(null)
     }
 
     return(
-        <AuthContext.Provider value={{isAuthenticated , username , login , logout}}>
+        <AuthContext.Provider value={{isAuthenticated , username , token , login , logout}}>
             {children}
         </AuthContext.Provider>
     )
