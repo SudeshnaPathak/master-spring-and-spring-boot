@@ -14,7 +14,13 @@ const apiClient = axios.create(
 
 export const retrieveHelloWorldBean = () => apiClient.get('/hello-world-bean')
 
-export const retrieveHelloWorldPathVariable = (name) => apiClient.get(`/hello-world/path-variable/${name}`)
+export const retrieveHelloWorldPathVariable = (name , token) => apiClient.get(`/hello-world/path-variable/${name}`,
+    {
+        headers: {
+            Authorization: token
+        }
+    }
+)
 
 export const executeBasicAuthenticationService = (token) => apiClient.get('/basicauth',
     {
