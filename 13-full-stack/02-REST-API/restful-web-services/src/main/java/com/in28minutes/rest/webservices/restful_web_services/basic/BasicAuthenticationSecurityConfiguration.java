@@ -1,7 +1,6 @@
 package com.in28minutes.rest.webservices.restful_web_services.basic;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -10,7 +9,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
-@Configuration //Very Important otherwise, Spring Security Configuration will not be applied
+//@Configuration //Very Important otherwise, Spring Security Configuration will not be applied
 // & you will see default Spring Security behavior
 public class BasicAuthenticationSecurityConfiguration {
     //Filter Chain

@@ -30,3 +30,23 @@ public class RestfulWebServicesApplication {
     }
 }
 
+//JWT : Json Web Token
+//Industrial Standard for securely transmitting information between parties as a JSON object.
+//Can contain user details and claims
+//Header: Type : JWT, Algorithm: HS256
+//Payload:
+//Standard Claims:
+//  iss: issuer
+//  sub: subject
+//  iat: issued at
+//  exp: expiration
+//Custom Claims:
+//  roles: user roles
+//  permissions: user permissions
+//Signature: Includes a secret key known only to the server to verify the token's integrity and authenticity.
+
+//JWT Flow:
+//Request with username and password
+//Response with JWT token
+
+//All JWT classes must be created in the package: jwt for components scan to work properly
