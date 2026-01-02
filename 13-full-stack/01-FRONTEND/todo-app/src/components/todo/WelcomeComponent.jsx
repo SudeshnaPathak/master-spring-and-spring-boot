@@ -1,19 +1,17 @@
 import { useState } from 'react'
 import {useParams, Link } from 'react-router-dom'
 import {retrieveHelloWorldPathVariable} from './api/HelloWorldApiService';
-import { useAuth } from './security/AuthContext';
 
 export default function WelcomeComponent(){
 
     const {username} = useParams() //hook to get path variables, object is destructured to get username
     const [message , setMessage] = useState(null);
-    const authContext = useAuth()
     
     function callHelloWorldRestAPI(){
 
         console.log("called")        
 
-        retrieveHelloWorldPathVariable(username , authContext.token)              //Returns a Promise
+        retrieveHelloWorldPathVariable(username)              //Returns a Promise
         .then((response) => successfulResponse(response))     //Callback for successful response
         .catch((error) => errorResponse(error))               //Callback for error response
         .finally(() => console.log('cleanup'))                //Callback for cleanup activity ~ always executed
