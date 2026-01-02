@@ -1,10 +1,16 @@
 package com.in28minutes.rest.webservices.restful_web_services.todo;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
 import java.time.LocalDate;
 
-
+@Entity
 public class Todo {
 
+    @Id
+    @GeneratedValue
     private Integer id;   // Changed to Integer to handle null values
     private String username;
     private String description;
