@@ -30,7 +30,7 @@ export default function AuthProvider({ children }) { //children -> all the child
 
     // async function login(username , password){
 
-    //     const baToken = 'Basic ' + window.btoa(username + ':' + password) //Base64 encoding of username and password
+    //     const baToken = 'Basic ' + window.btoa(username + ':' + password) //Base64 encoding of username and password , Space after Basic is important
 
     //     //async await pattern , where await is used to wait for the call to complete and return the response
     //     //and ensure that the code is executed in sequence
@@ -72,10 +72,13 @@ export default function AuthProvider({ children }) { //children -> all the child
             const response = await executeJWTAuthenticationService(username , password)
 
             if(response.status === 200){
-                const jwtToken = 'Bearer ' + response.data.token
+
+                const jwtToken = 'Bearer ' + response.data.token //Space after Bearer is important
+
                 setAuthenticated(true)
                 setUsername(username)
                 setToken(jwtToken)
+
                 //Intercepting every request to add Authorization header
                 apiClient.interceptors.request.use(
                     (config) => {
@@ -85,7 +88,8 @@ export default function AuthProvider({ children }) { //children -> all the child
                     }
                 )
                 return true
-            } else {
+            } 
+            else {
                 logout()
                 return false
             }

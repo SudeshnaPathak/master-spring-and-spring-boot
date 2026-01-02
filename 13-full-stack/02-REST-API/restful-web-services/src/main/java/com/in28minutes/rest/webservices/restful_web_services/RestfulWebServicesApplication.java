@@ -49,4 +49,4 @@ public class RestfulWebServicesApplication {
 //Request with username and password
 //Response with JWT token
 
-//All JWT classes must be created in the package: jwt for components scan to work properly
+//All JWT classes must be created in the jwt package for components scan to work properly

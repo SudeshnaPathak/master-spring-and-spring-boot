@@ -9,8 +9,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
-//@Configuration //Very Important otherwise, Spring Security Configuration will not be applied
-// & you will see default Spring Security behavior
+//@Configuration //Uncomment this annotation to enable Basic Authentication
 public class BasicAuthenticationSecurityConfiguration {
     //Filter Chain
     //HttpSecurity is used to configure security for HTTP requests by customizing filter chains.
