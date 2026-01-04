@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -81,12 +82,16 @@ public class BasicAuthSecurityConfiguration {
 
         //Challenge : Password is stored in Unencrypted Format
         UserDetails user = User.withUsername("Sudeshna")
-                .password("{noop}dummy") //{noop} means NoOpPasswordEncoder is used which does not perform any encoding
+//                .password("{noop}dummy") //{noop} means NoOpPasswordEncoder is used which does not perform any encoding
+                .password("dummy")
+                .passwordEncoder(str -> passwordEncoder().encode(str)) //Encoding the password using BCryptPasswordEncoder
                 .roles(Role.USER.name())
                 .build();
 
         UserDetails admin = User.withUsername("admin")
-                .password("{noop}dummy")
+//                .password("{noop}dummy")
+                .password("dummy")
+                .passwordEncoder(str -> passwordEncoder().encode(str))
                 .roles(Role.ADMIN.name() , Role.USER.name())
                 .build();
         //Roles are stored as Authority with "ROLE_" prefix in the database
@@ -97,6 +102,11 @@ public class BasicAuthSecurityConfiguration {
         jdbcUserDetailsManager.createUser(admin);
 
         return jdbcUserDetailsManager;
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 
 }
