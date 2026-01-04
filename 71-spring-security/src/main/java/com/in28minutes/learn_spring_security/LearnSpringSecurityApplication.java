@@ -56,3 +56,13 @@ public class LearnSpringSecurityApplication {
 //5.CORS Configuration
 //Browsers do not allow AJAX calls to resources residing outside the current origin
 //CORS - Cross Origin Resource Sharing allow us to configure which cross domain requests are allowed
+
+//6.Frames
+//By default Spring Security disables Frames to avoid ClickJacking Attacks
+//h2-console uses Frames to render the UI
+//To enable h2-console, we need to enable Frames in Spring Security Configuration
+
+//7.Storing User Credentials
+//In-Memory Database - Not recommended for production
+//JDBC - Recommended for production
+//LDAP - Recommended for production

@@ -2,13 +2,18 @@ package com.in28minutes.learn_spring_security.basic;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import javax.sql.DataSource;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -41,13 +46,40 @@ public class BasicAuthSecurityConfiguration {
                 csrf -> csrf.disable()
         );
 
+        http.headers(headers ->
+                headers.frameOptions(frameOptionsConfig-> frameOptionsConfig.disable())); //To Enable H2 Console
+
         return http.build();
 
     }
 
     //Storing User Credentials in In-Memory Database(Not Recommended for Production)
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        UserDetails user = User.withUsername("Sudeshna")
+//                .password("{noop}dummy") //{noop} means NoOpPasswordEncoder is used which does not perform any encoding
+//                .roles(Role.USER.name())
+//                .build();
+//
+//        UserDetails admin = User.withUsername("admin")
+//                .password("{noop}dummy")
+//                .roles(Role.ADMIN.name())
+//                .build();
+//        return new InMemoryUserDetailsManager(user , admin);
+//    }
+
     @Bean
-    public UserDetailsService userDetailsService() {
+    public DataSource dataSource() {
+        return new EmbeddedDatabaseBuilder()
+                .setType(EmbeddedDatabaseType.H2) //Sets the database type to H2
+                .addScript(JdbcDaoImpl.DEFAULT_USER_SCHEMA_DDL_LOCATION) //Adds the default user schema script provided by Spring Security
+                .build();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService(DataSource dataSource) {
+
+        //Challenge : Password is stored in Unencrypted Format
         UserDetails user = User.withUsername("Sudeshna")
                 .password("{noop}dummy") //{noop} means NoOpPasswordEncoder is used which does not perform any encoding
                 .roles(Role.USER.name())
@@ -55,9 +87,16 @@ public class BasicAuthSecurityConfiguration {
 
         UserDetails admin = User.withUsername("admin")
                 .password("{noop}dummy")
-                .roles(Role.ADMIN.name())
+                .roles(Role.ADMIN.name() , Role.USER.name())
                 .build();
-        return new InMemoryUserDetailsManager(user , admin);
+        //Roles are stored as Authority with "ROLE_" prefix in the database
+
+        JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
+
+        jdbcUserDetailsManager.createUser(user);
+        jdbcUserDetailsManager.createUser(admin);
+
+        return jdbcUserDetailsManager;
     }
 
 }
