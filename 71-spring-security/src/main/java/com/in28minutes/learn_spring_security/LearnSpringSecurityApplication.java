@@ -25,3 +25,8 @@ public class LearnSpringSecurityApplication {
 //3.Basic Authentication
 	//Sends Base64 encoded username and password in the Authorization header
 	//Not recommended for production , it has many flaws
+
+//CSRF Protection is by default enabled in Spring Security
+//Spring Security allows READ Requests for Basic Authentication, However, Spring Security requires a CSRF token for WRITE Requests (POST, PUT, DELETE) which modifies the state of the server
+//Synchronizer Token Pattern is used , A token is created for each request , To make an update(POST, PUT, DELETE), the client must send the token along with the request
+//For Stateless Applications (REST APIs), we can disable CSRF protection in Spring Security Configuration
