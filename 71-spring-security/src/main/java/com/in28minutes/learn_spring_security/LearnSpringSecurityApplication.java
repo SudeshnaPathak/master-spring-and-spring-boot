@@ -21,3 +21,7 @@ public class LearnSpringSecurityApplication {
 	//Eg: ajs_anonymous_id=ec8abce9-cc7d-4343-88b8-f4d4de8aa1c2; JSESSIONID=5A31DE5732C191CC8FE163631A61F4AA
 	//This session id is sent as a cookie to identify the user for all subsequent requests
 	//Provides default login & logout pages through /login & /logout endpoints
+
+//3.Basic Authentication
+	//Sends Base64 encoded username and password in the Authorization header
+	//Not recommended for production , it has many flaws
