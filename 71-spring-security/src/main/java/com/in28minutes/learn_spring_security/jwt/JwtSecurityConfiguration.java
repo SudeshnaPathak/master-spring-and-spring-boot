@@ -1,6 +1,12 @@
-package com.in28minutes.learn_spring_security.basic;
+package com.in28minutes.learn_spring_security.jwt;
 
+import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.jwk.JWKSet;
+import com.nimbusds.jose.jwk.RSAKey;
+import com.nimbusds.jose.jwk.source.JWKSource;
+import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,15 +16,22 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
 
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.interfaces.RSAPublicKey;
+import java.util.UUID;
+
 import static org.springframework.security.config.Customizer.withDefaults;
 
-//@Configuration
-public class BasicAuthSecurityConfiguration {
+@Configuration
+public class JwtSecurityConfiguration {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -36,8 +49,6 @@ public class BasicAuthSecurityConfiguration {
                                 SessionCreationPolicy.STATELESS)
                 );
 
-        //http.formLogin();  ~ Disabling Form Based Authentication
-
         //Enabling Basic Authentication
         http.httpBasic(withDefaults());
 
@@ -47,26 +58,14 @@ public class BasicAuthSecurityConfiguration {
         );
 
         http.headers(headers ->
-                headers.frameOptions(frameOptionsConfig-> frameOptionsConfig.disable())); //To Enable H2 Console
+                headers.frameOptions(frameOptionsConfig-> frameOptionsConfig.sameOrigin())); //To Enable H2 Console
+
+        http.oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults())); //Enabling JWT Authentication
 
         return http.build();
 
     }
 
-    //Storing User Credentials in In-Memory Database(Not Recommended for Production)
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user = User.withUsername("Sudeshna")
-//                .password("{noop}dummy") //{noop} means NoOpPasswordEncoder is used which does not perform any encoding
-//                .roles(Role.USER.name())
-//                .build();
-//
-//        UserDetails admin = User.withUsername("admin")
-//                .password("{noop}dummy")
-//                .roles(Role.ADMIN.name())
-//                .build();
-//        return new InMemoryUserDetailsManager(user , admin);
-//    }
 
     @Bean
     public DataSource dataSource() {
@@ -79,16 +78,13 @@ public class BasicAuthSecurityConfiguration {
     @Bean
     public UserDetailsService userDetailsService(DataSource dataSource) {
 
-        //Challenge : Password is stored in Unencrypted Format
         UserDetails user = User.withUsername("Sudeshna")
-//                .password("{noop}dummy") //{noop} means NoOpPasswordEncoder is used which does not perform any encoding
                 .password("dummy")
                 .passwordEncoder(str -> passwordEncoder().encode(str)) //Encoding the password using BCryptPasswordEncoder
                 .roles(Role.USER.name())
                 .build();
 
         UserDetails admin = User.withUsername("admin")
-//                .password("{noop}dummy")
                 .password("dummy")
                 .passwordEncoder(str -> passwordEncoder().encode(str))
                 .roles(Role.ADMIN.name() , Role.USER.name())
@@ -107,5 +103,51 @@ public class BasicAuthSecurityConfiguration {
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
+    //1.Create Key Pair
+    @Bean
+    public KeyPair keyPair(){
+        try{
+            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA"); //Using RSA Algorithm for Key Pair Generation
+            keyPairGenerator.initialize(2048); //Key Size of 2048 bits
+            return keyPairGenerator.generateKeyPair(); //Generating the Key Pair
+        }catch (Exception ex){
+            throw new RuntimeException(ex);
+        }
+    }
+
+    //2.Create RSA Key using the Key Pair
+    @Bean
+    public RSAKey rsaKey(KeyPair keyPair){
+        return new RSAKey
+                .Builder((RSAPublicKey) keyPair.getPublic())
+                .privateKey(keyPair().getPrivate())
+                .keyID(UUID.randomUUID().toString())
+                .build();
+    }
+
+    //3.Create JWK Source(JSON Web Key Source) using the RSA Key
+    @Bean
+    public JWKSource<SecurityContext> jwkSource(RSAKey rsaKey){
+        JWKSet jwkSet = new JWKSet(rsaKey);
+        return (jwkSelector , securityContext) -> jwkSelector.select(jwkSet);
+//        JWKSource jwkSource = new JWKSource() {
+//
+//            @Override
+//            public List<JWK> get(JWKSelector jwkSelector, SecurityContext securityContext) throws KeySourceException {
+//                return jwkSelector.select(jwkSet);
+//            }
+//        };
+    }
+
+    //4.Create JWT Decoder using the RSA Key -> To use RSA Public key for Decoding the JWT Token
+    @Bean
+    public JwtDecoder jwtDecoder(RSAKey rsaKey) throws JOSEException {
+        return NimbusJwtDecoder
+                .withPublicKey(rsaKey.toRSAPublicKey())
+                .build();
+
+    }
+
 
 }

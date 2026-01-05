@@ -1,5 +1,6 @@
 package com.in28minutes.learn_spring_security;
 
+import org.jspecify.annotations.NonNull;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +22,7 @@ public class LearnSpringSecurityApplication {
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
 			// Override the addCorsMappings method of WebMvcConfigurer to allow CORS requests
-			public void addCorsMappings(CorsRegistry registry) {
+			public void addCorsMappings(@NonNull CorsRegistry registry) {
 				registry.addMapping("/**") //Add mapping to allow CORS requests to all endpoints
 						.allowedMethods("*") //Allow all HTTP methods (GET, POST, PUT, DELETE, etc.)
 						.allowedOrigins("http://localhost:3000"); //Allow requests from this origin
@@ -48,8 +49,8 @@ public class LearnSpringSecurityApplication {
 	//Not recommended for production , it has many flaws
 
 //4.CSRF Protection
-//CSRF Protection is by default enabled in Spring Security
-//Spring Security allows READ Requests for Basic Authentication, However, Spring Security requires a CSRF token for WRITE Requests (POST, PUT, DELETE) which modifies the state of the server
+// By default enabled in Spring Security
+// allows READ Requests for Basic Authentication, However, Spring Security requires a CSRF token for WRITE Requests (POST, PUT, DELETE) which modifies the state of the server
 //Synchronizer Token Pattern is used , A token is created for each request , To make an update(POST, PUT, DELETE), the client must send the token along with the request
 //For Stateless Applications (REST APIs), we can disable CSRF protection in Spring Security Configuration
 
@@ -63,6 +64,7 @@ public class LearnSpringSecurityApplication {
 //To enable h2-console, we need to enable Frames in Spring Security Configuration
 
 //7.Storing User Credentials
-//In-Memory Database - Not recommended for production
-//JDBC - Recommended for production
-//LDAP - Recommended for production
+//In-Memory - Not recommended for Production
+//Database - JDBC/JPA to access the credentials
+//LDAP ~ Lightweight Directory Access Protocol - Used in Enterprises
+//OAuth2 / OpenID Connect - Social Logins (Google, Facebook, GitHub)
