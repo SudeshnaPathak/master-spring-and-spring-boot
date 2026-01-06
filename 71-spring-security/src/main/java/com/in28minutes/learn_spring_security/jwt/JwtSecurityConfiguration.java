@@ -17,7 +17,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -147,6 +149,13 @@ public class JwtSecurityConfiguration {
                 .withPublicKey(rsaKey.toRSAPublicKey())
                 .build();
 
+    }
+
+    //5.Create JWT Encoder using the JWK Source -> To use RSA Private key for Encoding the JWT Token
+    @Bean
+    public JwtEncoder jwtEncoder(JWKSource<SecurityContext> jwkSource)
+    {
+        return new NimbusJwtEncoder(jwkSource);
     }
 
 
