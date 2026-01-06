@@ -1,8 +1,10 @@
 package com.in28minutes.learn_spring_security.basic;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
@@ -17,7 +19,8 @@ import javax.sql.DataSource;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
-//@Configuration
+@Configuration
+@EnableMethodSecurity(jsr250Enabled = true , securedEnabled = true)
 public class BasicAuthSecurityConfiguration {
 
     @Bean
@@ -25,8 +28,11 @@ public class BasicAuthSecurityConfiguration {
 
         //All Requests should be authenticated
         http.authorizeHttpRequests(
-                auth ->
-                        auth.anyRequest().authenticated()
+                auth -> {
+                    auth
+                            .requestMatchers("/users/**").hasRole("USER")
+                            .anyRequest().authenticated();
+                }
                 );
 
         //Setting Stateless Session ~ No Sessions will be created or used by Spring Security
