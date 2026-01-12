@@ -17,6 +17,12 @@ public class HelloWorldContoller {
         this.messageSource = messageSource;
     }
 
+    //#CHANGE : Health Check Endpoint for AWS Elastic Beanstalk
+    @GetMapping("/")
+    public String healthCheck() {
+        return "Application Running!";
+    }
+
     @GetMapping(path = "/hello-world")
     public String helloWorld() {
         return "Hello World";
