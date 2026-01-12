@@ -57,3 +57,22 @@ public class RestfulWebServicesApplication {
 //Intercept requests
 //Executes a series of filters ~ Filter Chain
 
+//Deployment
+//Create a jar file using mvn clean install
+//Go to AWS Console ~ Elastic Beanstalk
+//Create a new Application
+//Create a new Environment ~ Web Server Environment
+//Configure Application name , Platform ~ Java , use Corretto version >= your JDK version
+//Upload your code -> choose local file
+//Now upload the jar file
+//Enable Database ~ RDS
+//Add Db username & password in Database Settings
+//change t3.small -> t3.micro for database which is free tier eligible instance
+//Choose Low Availability
+//Database Deletion Policy on environment termination -> Delete
+//Create Environment
+//Access the application using the provided URL
+
+
+
+
