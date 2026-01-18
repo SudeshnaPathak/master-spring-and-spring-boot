@@ -31,7 +31,7 @@ public class FP01Exercises {
         System.out.println("Exercise 5: Print the square of even numbers");
         numbers.stream()
                 .filter(n -> n % 2 == 0)
-                .map(n -> n * n) //map is used to transform each element
+                .map(n -> n * n) //map is used to transform/map each element to another form
                 .forEach(System.out::println);
 
         System.out.println("Exercise 6: Print the cube of odd numbers");

@@ -14,7 +14,7 @@ public class FP01Functional {
         //Functional Approach : What to do with each number?
         //We are not calling the method here, we are just passing it as a reference to be used later
         numbers.stream()
-                .forEach(System.out::println); //Method Reference
+                .forEach(System.out::println); //Method Reference to call static method println of System.out
     }
 
 //    private static boolean isEven(int number) {
@@ -22,7 +22,8 @@ public class FP01Functional {
 //    }
 
     private static void printAllEvenNumbersInListFunctional(List<Integer> numbers) {
-        //If filter returns true , only then the number is passed to forEach
+        //filter is a higher order function that takes a predicate (a function that returns a boolean) as an argument
+        //If filter returns true, the number is included in the stream, otherwise it is excluded
         numbers.stream()
                 .filter(number -> number % 2 == 0) //Lambda Expression
                 .forEach(System.out::println);
