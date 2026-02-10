@@ -12,7 +12,7 @@ public class StreamOperations {
                 .filter(n->n%2==1) //filters a stream to include only odd numbers
                 .map(n->n*n) //maps each number to its square
                 .distinct() //removes duplicate elements from the stream
-                .sorted() //sorts the elements of the stream
+                .sorted((n1 , n2) -> n2 - n1) //sorts the elements of the stream in descending order
                 .skip(1) //skips the first element of the stream
                 .forEach(System.out::println);
 

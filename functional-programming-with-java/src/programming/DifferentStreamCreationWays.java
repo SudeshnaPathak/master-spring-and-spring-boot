@@ -18,7 +18,7 @@ public class DifferentStreamCreationWays {
         //Collections.stream() is used to create a stream from a Map, List, Set etc.
         List<String> courses = List.of("Spring", "Spring Boot", "API", "Microservices", "AWS", "PCF", "Azure", "Docker", "Kubernetes");
         courses.stream()
-                .map(course -> course.toUpperCase())
+                .map(String::toUpperCase) //Using Method reference to call instance method toUpperCase of String class to convert each course name to uppercase
                 .forEach(System.out::println);
 
         Map<String , Integer> map = Map.of("Java", 100, "Python", 80, "JavaScript", 95);
