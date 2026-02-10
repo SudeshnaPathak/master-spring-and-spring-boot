@@ -1,90 +1,60 @@
 package programming;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class StreamOperations {
     public static void main(String[] args) {
-        List<Integer> numbers = List.of(1, 2, 3, 4, 5);
-        int sum = numbers.stream().reduce(0 , Integer::sum); //reduce is used to combine all elements of the stream into a single result, in this case, we are summing all the numbers in the list
-        System.out.println(sum);
+        List<Integer> numbers = List.of(2 , 3 , 4 , 5 , 2 , 3 , 11 , 11);
 
-        //Collections.stream() is used to create a stream from a Map, List, Set etc.
-        List<String> courses = List.of("Spring", "Spring Boot", "API", "Microservices", "AWS", "PCF", "Azure", "Docker", "Kubernetes");
-        courses.stream()
-                .map(course -> course.toUpperCase())
+        //Intermediate operations
+        numbers.stream()
+                .filter(n->n%2==1) //filters a stream to include only odd numbers
+                .map(n->n*n) //maps each number to its square
+                .distinct() //removes duplicate elements from the stream
+                .sorted() //sorts the elements of the stream
+                .skip(1) //skips the first element of the stream
                 .forEach(System.out::println);
 
-        Map<String , Integer> map = Map.of("Java", 100, "Python", 80, "JavaScript", 95);
-        Stream<Integer> values = map.values().stream();
-        System.out.println("Values:");
-        values.forEach(System.out::println);
-        Stream<String> keys = map.keySet().stream();
-        System.out.println("Keys:");
-        keys.forEach(System.out::println);
-        Stream<Map.Entry<String, Integer>> stream = map.entrySet().stream();
-        System.out.println("Entries:");
-        stream.forEach(System.out::println);
+        //Terminal operations
+        List<Integer> squared = numbers.stream()
+                .map(n -> n*n)
+                .toList(); //collects the squared numbers stream into a List
+        System.out.println(squared);
 
-        //Stream.of() is used to create a stream from a sequence of values
-        Stream<String> stream1 = Stream.of("Apple", "Banana", "Orange", "Mango", "Pineapple").map(n -> n+" ");
-        stream1.forEach(System.out::print);
+        int sum = squared.stream()
+                .reduce(0 , Integer::sum);
+        System.out.println("Sum: " + sum);
+
+        int cnt = (int) squared.stream().filter(n->n%2==0).count();
+        System.out.println("Count of even numbers: " + cnt);
+
+        int first = squared.stream().findFirst().orElse(-1);
+        System.out.println("First element: " + first);
+
+        int any = squared.stream().findAny().get();
+        System.out.println("Any element: " + any);
+
+        System.out.println("Is all even: " + squared.stream().allMatch(n->n%2==0));
+        System.out.println("Is any greater than 50: " + squared.stream().anyMatch(n->n>50));
+        System.out.println("Is none greater than 100: " + squared.stream().noneMatch(n->n>100));
+
+        List<Integer> l = List.of(1, 2, 3, 4, 5);
+        Stream<Integer> s = l.stream();
+        s.forEach(System.out::print); //Works fine
         System.out.println();
-
-        //Arrays.stream() is used to create a stream from an array
-        int[] arr = {1, 2, 3, 4, 5};
-        IntStream stream2 = Arrays.stream(arr);
-        stream2.forEach((System.out :: print));
-        System.out.println();
-
-        //OR
-
-        Stream<Integer> boxedStream = Arrays.stream(arr).filter(n -> n % 2 == 0).boxed(); //boxed is used to convert IntStream to Stream<Integer>
-        boxedStream.forEach(System.out::print);
-        System.out.println();
-
-        //Builder pattern to manually construct a stream
-        Stream.Builder<String> builder = Stream.builder();
-        builder.add("Lenovo").add("Dell").add("HP").add("Asus");
-        Stream<String> stream3 = builder.build();
-        stream3.forEach(System.out::println);
-
-        //Stream.generate() is used to create an infinite stream of random numbers, we can limit it to a certain number of elements using limit()
-        Stream<Double> randomNumbers = Stream.generate(Math::random)
-                .limit(5)
-                .map(n->Math.floor(n*100));
-        randomNumbers.forEach(System.out::println);
-
-        //Stream.iterate() is used to create an infinite stream using fixed pattern, we can limit it to a certain number of elements using limit()
-        Stream<Integer> evenNumbers = Stream.iterate(0 , n-> n + 2)
-                .limit(10);
-        evenNumbers.forEach(System.out::println);
-
-        //IntStream.range() is used to create a number range stream, it is exclusive of the upper bound
-        Stream<Integer> num = IntStream.range(1 , 5).boxed();
-        num.forEach(System.out::print);
-        System.out.println();
-
-        //OR
-
-        //IntStream.rangeClosed() is used to create a number range stream, it is inclusive of the upper bound
-        IntStream num2 = IntStream.rangeClosed(1 , 5);
-        num2.forEach(System.out::print);
-
-        System.out.println();
-        Stream<String> fileStream = null;
-        try {
-            fileStream = Files.lines(Paths.get("file.txt"));
-            fileStream.forEach(System.out::println);
-        } catch (IOException e) {
-            System.out.println("No such file exits");
+        try{
+                s.forEach(System.out::print); //Throws IllegalStateException: stream has already been operated upon or closed,
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
         }
 
     }
 }
+//Streams do not store data, they are not a data structure, they are a sequence of elements that can be processed in parallel or sequentially.
+//They are lazy, meaning that they do not perform any operations until a terminal operation like forEach, collect, reduce etc. is called.
+//Streams are immutable, the intermediate operations like filter, map, distinct, sorted etc. return a new stream and do not modify the original list.
+//Streams can only be consumed once, after a terminal operation is called, the stream is closed and cannot be used again, hence we get IllegalStateException if we try to use the same stream again.
+
+
