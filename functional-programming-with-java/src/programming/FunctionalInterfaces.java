@@ -6,6 +6,7 @@ package programming;
 // but it is not mandatory to use the annotation, it is just a good practice to use it to avoid accidental addition of more abstract methods in the interface.
 
 import java.util.Random;
+import java.util.function.Predicate;
 
 @FunctionalInterface
 interface Consumer<T>{
@@ -15,11 +16,6 @@ interface Consumer<T>{
 @FunctionalInterface
 interface Function<T,R>{
     R apply(T t);
-}
-
-@FunctionalInterface
-interface Predicate<T>{
-    boolean test(T t);
 }
 
 @FunctionalInterface

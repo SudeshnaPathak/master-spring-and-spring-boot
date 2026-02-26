@@ -41,7 +41,8 @@ public class DifferentStreamCreationWays {
         int[] arr = {1, 2, 3, 4, 5};
         IntStream stream2 = Arrays.stream(arr);
         stream2.forEach((System.out :: print));
-        System.out.println();
+        int[] even_arr = Arrays.stream(arr).filter(n -> n % 2 == 0).toArray(); //toArray is used to convert the stream back to an array
+        System.out.println(Arrays.toString(even_arr));
 
         //OR
 
@@ -85,6 +86,16 @@ public class DifferentStreamCreationWays {
         } catch (IOException e) {
             System.out.println("No such file exits");
         }
+
+        //parallel streams : makes use of multiple threads to process the stream in parallel, it can improve performance for large data sets, but it may not always be faster than sequential streams due to overhead of thread management and synchronization, hence it is important to measure the performance before using parallel streams
+        int s = numbers.stream()
+                .parallel()
+                .reduce(0 , Integer::sum);
+        System.out.println("Sum using parallel stream: " + s);
+
+        int s1 = numbers.parallelStream()
+                .reduce(0 , Integer::sum);
+        System.out.println("Sum using parallelStream: " + s1);
 
     }
 }
